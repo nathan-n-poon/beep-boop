@@ -1,0 +1,11 @@
+C:/Users/natha/OneDrive/Documents/GitHub/beep-boop/tb.sv {1 {vlog -work work -sv -stats=none C:/Users/natha/OneDrive/Documents/GitHub/beep-boop/tb.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module tb_simulation
+
+Top level modules:
+	tb_simulation
+
+} {} {}} C:/Users/natha/OneDrive/Documents/GitHub/beep-boop/parameter.v {1 {vlog -work work -stats=none C:/Users/natha/OneDrive/Documents/GitHub/beep-boop/parameter.v
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+
+} {} {}}

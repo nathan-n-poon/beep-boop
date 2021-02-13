@@ -1,0 +1,55 @@
+Fri Feb 12 16:44:32 MST 2021
+Trace back: bad Scrolledlistbox index "-1": must be active, anchor, end, @x,y, number, or a pattern
+    while executing
+"error "bad Scrolledlistbox index \"$index\": must be active, anchor, end, @x,y, number, or a pattern""
+    (object "::.ccl.tf.childsite.lnames" method "::iwidgets::Scrolledlistbox::_fixIndex" body line 9)
+    invoked from within
+"_fixIndex $first"
+    (object "::.ccl.tf.childsite.lnames" method "::iwidgets::Scrolledlistbox::selection" body line 2)
+    invoked from within
+"$ConfigNameWgt selection set [lsearch $ConfigNameList $CurrentColConfigName]"
+    (object "::.main_pane.project.interior.cs.body.project" method "::vsimwidgets::Hierarchy::ConfigureColLayoutDlg" body line 21)
+    invoked from within
+"::.main_pane.project.interior.cs.body.project ConfigureColLayoutDlg"
+    (in namespace inscope "::vsimwidgets::Hierarchy" script line 1)
+    invoked from within
+"namespace inscope ::vsimwidgets::Hierarchy {::.main_pane.project.interior.cs.body.project ConfigureColLayoutDlg}"
+    (menu invoke)
+  <2:C:/intelFPGA_lite/19.1/modelsim_ase/win32aloem/tk8.5/bgerror.tcl:92: ::tkerror {bad Scrolledlistbox index "-1": must be active, anchor, end, @x,y, number, or a pattern}
+  <1:eval:1: ::tk::dialog::error::bgerror {bad Scrolledlistbox index "-1": must be active, anchor, end, @x,y, number, or a pattern}
+Sat Feb 13 00:02:20 MST 2021
+Trace back: can't read "tmp_array(Default)": no such element in array
+    while executing
+"foreach column_label $tmp_array($CurrentColConfigName) {
+		if { [column exists $column_label] } {
+			continue
+		}
+		column add $column_label
+	}"
+    (object "::.main_pane.project.interior.cs.body.project" method "::vsimwidgets::Hierarchy::updateColumnVisibility" body line 13)
+    invoked from within
+"updateColumnVisibility"
+    (object "::.main_pane.project.interior.cs.body.project" method "::vsimwidgets::Hierarchy::ApplyCurrentColumnConfiguration" body line 10)
+    invoked from within
+"ApplyCurrentColumnConfiguration $CurrentColConfigName"
+    (object "::.main_pane.project.interior.cs.body.project" method "::vsimwidgets::Hierarchy::UpdateCurrentColumnConfiguration" body line 7)
+    invoked from within
+"::.main_pane.project.interior.cs.body.project UpdateCurrentColumnConfiguration CurrentColConfigName {} w"
+    (in namespace inscope "::vsimwidgets::Hierarchy" script line 1)
+    invoked from within
+"namespace inscope ::vsimwidgets::Hierarchy {::.main_pane.project.interior.cs.body.project UpdateCurrentColumnConfiguration} CurrentColConfigName {} w"
+    (write trace on "CurrentColConfigName")
+    invoked from within
+"set CurrentColConfigName $current_config"
+    (object "::.main_pane.project.interior.cs.body.project" method "::vsimwidgets::Hierarchy::LoadColumnData" body line 35)
+    invoked from within
+"LoadColumnData"
+    (object "::.main_pane.project.interior.cs.body.project" method "::vsimwidgets::Hierarchy::_MapEvent" body line 3)
+    invoked from within
+"::.main_pane.project.interior.cs.body.project _MapEvent"
+    (in namespace inscope "::vsimwidgets::Hierarchy" script line 1)
+    invoked from within
+"namespace inscope ::vsimwidgets::Hierarchy {::.main_pane.project.interior.cs.body.project _MapEvent}"
+    (command bound to event)
+  <2:C:/intelFPGA_lite/19.1/modelsim_ase/win32aloem/tk8.5/bgerror.tcl:92: ::tkerror {can't set "CurrentColConfigName": can't read "tmp_array(Default)": no such element in array}
+  <1:eval:1: ::tk::dialog::error::bgerror {can't set "CurrentColConfigName": can't read "tmp_array(Default)": no such element in array}

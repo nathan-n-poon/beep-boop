@@ -1,0 +1,17 @@
+# Compile of image_write.v was successful.
+# Compile of parameter.v was successful.
+# Compile of image_read.v was successful.
+# Compile of tb.sv was successful.
+# 4 compiles, 0 failed with no errors.
+vsim -gui work.tb_simulation
+# vsim -gui work.tb_simulation 
+# Start time: 00:03:45 on Feb 13,2021
+# Loading sv_std.std
+# Loading work.tb_simulation
+# Loading work.image_read
+# Loading work.image_write
+run
+# done
+# ** Note: $stop    : C:/Users/natha/OneDrive/Documents/GitHub/beep-boop/tb.sv(69)
+#    Time: 16598500 ps  Iteration: 0  Instance: /tb_simulation
+# Break in Module tb_simulation at C:/Users/natha/OneDrive/Documents/GitHub/beep-boop/tb.sv line 69
