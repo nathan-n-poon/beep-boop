@@ -54,12 +54,12 @@ initial begin
 	BMP_header[15] =  0;BMP_header[43] = 0;
 	BMP_header[16] =  0;BMP_header[44] = 0;
 	BMP_header[17] =  0;BMP_header[45] = 0;
-	BMP_header[18] =  0;BMP_header[46] = 0;
-	BMP_header[19] =  100;BMP_header[47] = 0;
+	BMP_header[18] =  100;BMP_header[46] = 0;
+	BMP_header[19] =  0;BMP_header[47] = 0;
 	BMP_header[20] =  0;BMP_header[48] = 0;
 	BMP_header[21] =  0;BMP_header[49] = 0;
-	BMP_header[22] =  0;BMP_header[50] = 0;
-	BMP_header[23] =  100;BMP_header[51] = 0;	
+	BMP_header[22] =  100;BMP_header[50] = 0;
+	BMP_header[23] =  0;BMP_header[51] = 0;	
 	BMP_header[24] =  0;BMP_header[52] = 0;
 	BMP_header[25] =  0;BMP_header[53] = 0;
 	BMP_header[26] =  1;
@@ -133,26 +133,30 @@ always@(Write_Done) begin // once the processing was done, bmp image will be cre
             boi = boi + 1;
         end
         
-        for(i=0; i<WIDTH*HEIGHT*3; i=i+6) begin
-		// write R0B0G0 and R1B1G1 (6 bytes) in a loop
-            $fwrite(fd, "%c", out_BMP[i  ][7:0]);
-            temp[boi] = out_BMP[i  ][7:0];
-            boi = boi + 1;
-            $fwrite(fd, "%c", out_BMP[i+1][7:0]);
-            temp[boi] = out_BMP[i+1][7:0];
-            boi = boi + 1;
-            $fwrite(fd, "%c", out_BMP[i+2][7:0]);
-            temp[boi] = out_BMP[i+2][7:0];
-            boi = boi + 1;
-            $fwrite(fd, "%c", out_BMP[i+3][7:0]);
-            temp[boi] = out_BMP[i+3][7:0];
-            boi = boi + 1;
-            $fwrite(fd, "%c", out_BMP[i+4][7:0]);
-            temp[boi] = out_BMP[i+4][7:0];
-            boi = boi + 1;
-            $fwrite(fd, "%c", out_BMP[i+5][7:0]);
-            temp[boi] = out_BMP[i+5][7:0];
-            boi = boi + 1;
+        // for(i=0; i<WIDTH*HEIGHT*3; i=i+6) begin
+		// // write R0B0G0 and R1B1G1 (6 bytes) in a loop
+        //     $fwrite(fd, "%c", out_BMP[i  ][7:0]);
+        //     temp[boi] = out_BMP[i  ][7:0];
+        //     boi = boi + 1;
+        //     $fwrite(fd, "%c", out_BMP[i+1][7:0]);
+        //     temp[boi] = out_BMP[i+1][7:0];
+        //     boi = boi + 1;
+        //     $fwrite(fd, "%c", out_BMP[i+2][7:0]);
+        //     temp[boi] = out_BMP[i+2][7:0];
+        //     boi = boi + 1;
+        //     $fwrite(fd, "%c", out_BMP[i+3][7:0]);
+        //     temp[boi] = out_BMP[i+3][7:0];
+        //     boi = boi + 1;
+        //     $fwrite(fd, "%c", out_BMP[i+4][7:0]);
+        //     temp[boi] = out_BMP[i+4][7:0];
+        //     boi = boi + 1;
+        //     $fwrite(fd, "%c", out_BMP[i+5][7:0]);
+        //     temp[boi] = out_BMP[i+5][7:0];
+        //     boi = boi + 1;
+        // end
+
+        for(i=0; i<600; i=i+6) begin
+            $fwrite(fd, "%c", boi);
         end
     end
 end

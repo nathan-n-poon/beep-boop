@@ -5,7 +5,7 @@
 # 4 compiles, 0 failed with no errors.
 vsim -gui work.tb_simulation
 # vsim -gui work.tb_simulation 
-# Start time: 16:32:44 on Feb 13,2021
+# Start time: 21:38:42 on Feb 13,2021
 # Loading sv_std.std
 # Loading work.tb_simulation
 # Loading work.image_read
@@ -15,71 +15,21 @@ run
 # ** Note: $stop    : C:/Users/natha/OneDrive/Documents/GitHub/beep-boop/tb.sv(69)
 #    Time: 16598500 ps  Iteration: 0  Instance: /tb_simulation
 # Break in Module tb_simulation at C:/Users/natha/OneDrive/Documents/GitHub/beep-boop/tb.sv line 69
-restart
 # Compile of image_write.v was successful.
 # Compile of parameter.v was successful.
 # Compile of image_read.v was successful.
 # Compile of tb.sv was successful.
 # 4 compiles, 0 failed with no errors.
-restart
+vsim -gui work.tb_simulation
+# End time: 22:06:33 on Feb 13,2021, Elapsed time: 0:27:51
+# Errors: 0, Warnings: 0
+# vsim -gui work.tb_simulation 
+# Start time: 22:06:34 on Feb 13,2021
+# Loading sv_std.std
 # Loading work.tb_simulation
 # Loading work.image_read
 # Loading work.image_write
 run
-# hello
-# hello
-# hello
-# hello
-# hello
-# hello
-# hello
-# hello
-# hello
-# hello
-# hello
-# hello
-# hello
-# hello
-# hello
-# hello
-# hello
-# hello
-# hello
-# hello
-# hello
-# hello
-# hello
-# hello
-# hello
-# hello
-# hello
-# hello
-# hello
-# hello
-# hello
-# hello
-# hello
-# hello
-# hello
-# hello
-# hello
-# hello
-# hello
-# hello
-# hello
-# hello
-# hello
-# hello
-# hello
-# hello
-# hello
-# hello
-# hello
-# hello
-# hello
-# hello
-# hello
-# hello
 # done
 # ** Note: $stop    : C:/Users/natha/OneDrive/Documents/GitHub/beep-boop/tb.sv(69)
 #    Time: 16598500 ps  Iteration: 0  Instance: /tb_simulation
@@ -98,26 +48,20 @@ run
 # ** Note: $stop    : C:/Users/natha/OneDrive/Documents/GitHub/beep-boop/tb.sv(69)
 #    Time: 16598500 ps  Iteration: 0  Instance: /tb_simulation
 # Break in Module tb_simulation at C:/Users/natha/OneDrive/Documents/GitHub/beep-boop/tb.sv line 69
-# Compile of image_write.v failed with 9 errors.
+# Compile of image_write.v was successful.
 # Compile of parameter.v was successful.
 # Compile of image_read.v was successful.
 # Compile of tb.sv was successful.
-# 4 compiles, 1 failed with 9 errors.
-# Compile of image_write.v failed with 10 errors.
-# Compile of parameter.v was successful.
-# Compile of image_read.v was successful.
-# Compile of tb.sv was successful.
-# 4 compiles, 1 failed with 10 errors.
-# Compile of image_write.v failed with 8 errors.
-# Compile of parameter.v was successful.
-# Compile of image_read.v was successful.
-# Compile of tb.sv was successful.
-# 4 compiles, 1 failed with 8 errors.
-# Compile of image_write.v failed with 1 errors.
-# Compile of parameter.v was successful.
-# Compile of image_read.v was successful.
-# Compile of tb.sv was successful.
-# 4 compiles, 1 failed with 1 error.
+# 4 compiles, 0 failed with no errors.
+restart
+# Loading work.tb_simulation
+# Loading work.image_read
+# Loading work.image_write
+run
+# done
+# ** Note: $stop    : C:/Users/natha/OneDrive/Documents/GitHub/beep-boop/tb.sv(69)
+#    Time: 16598500 ps  Iteration: 0  Instance: /tb_simulation
+# Break in Module tb_simulation at C:/Users/natha/OneDrive/Documents/GitHub/beep-boop/tb.sv line 69
 # Compile of image_write.v was successful.
 # Compile of parameter.v was successful.
 # Compile of image_read.v was successful.
