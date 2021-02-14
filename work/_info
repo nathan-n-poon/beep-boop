@@ -9,13 +9,13 @@ z2
 cModel Technology
 dC:/Users/natha/OneDrive/Documents/GitHub/finalexam-nathan-n-poon/task2_mt1q2
 vimage_read
-Z0 !s110 1613199818
+Z0 !s110 1613260462
 !i10b 1
 !s100 ^Gkz^X:i8>Zk@c6Z<Y8cZ1
 IQcUPn1HbVDV@6iXT?7GMS1
 Z1 VDg1SIo80bB@j0V0VzS_@n1
 Z2 dC:/Users/natha/OneDrive/Documents/GitHub/beep-boop
-w1613176825
+w1613204910
 8C:/Users/natha/OneDrive/Documents/GitHub/beep-boop/image_read.v
 FC:/Users/natha/OneDrive/Documents/GitHub/beep-boop/image_read.v
 L0 6
@@ -23,7 +23,7 @@ Z3 OV;L;10.5b;63
 r1
 !s85 0
 31
-Z4 !s108 1613199818.000000
+Z4 !s108 1613260462.000000
 !s107 parameter.v|C:/Users/natha/OneDrive/Documents/GitHub/beep-boop/image_read.v|
 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/natha/OneDrive/Documents/GitHub/beep-boop/image_read.v|
 !i113 1
@@ -32,11 +32,11 @@ Z6 tCvgOpt 0
 vimage_write
 R0
 !i10b 1
-!s100 @fC1ea>Ozfohomf:5SS@c1
-Inm7B?LCCXad3aAT6hQ_1F1
+!s100 d3?<2zzb6LcBMkd]3z9m_3
+IQBhFcfMAiCj1YYb^37^V_3
 R1
 R2
-w1613188420
+w1613260459
 8C:/Users/natha/OneDrive/Documents/GitHub/beep-boop/image_write.v
 FC:/Users/natha/OneDrive/Documents/GitHub/beep-boop/image_write.v
 L0 4
