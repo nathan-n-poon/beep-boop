@@ -76,3 +76,17 @@ run
 # ** Note: $stop    : C:/Users/natha/OneDrive/Documents/GitHub/beep-boop/tb.sv(69)
 #    Time: 16598500 ps  Iteration: 0  Instance: /tb_simulation
 # Break in Module tb_simulation at C:/Users/natha/OneDrive/Documents/GitHub/beep-boop/tb.sv line 69
+# Compile of image_write.v was successful.
+# Compile of parameter.v was successful.
+# Compile of image_read.v was successful.
+# Compile of tb.sv was successful.
+# 4 compiles, 0 failed with no errors.
+restart
+# Loading work.tb_simulation
+# Loading work.image_read
+# Loading work.image_write
+run
+# done
+# ** Note: $stop    : C:/Users/natha/OneDrive/Documents/GitHub/beep-boop/tb.sv(69)
+#    Time: 16598500 ps  Iteration: 0  Instance: /tb_simulation
+# Break in Module tb_simulation at C:/Users/natha/OneDrive/Documents/GitHub/beep-boop/tb.sv line 69

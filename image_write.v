@@ -155,7 +155,7 @@ always@(Write_Done) begin // once the processing was done, bmp image will be cre
         //     boi = boi + 1;
         // end
 
-        for(i=0; i<600; i=i+6) begin
+        for(i=0; i<30000; i=i+1) begin
             $fwrite(fd, "%c", boi);
         end
     end
