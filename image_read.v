@@ -7,7 +7,7 @@ module image_read
 #(
   parameter WIDTH 	= 100, 					// Image width
 			HEIGHT 	= 100, 						// Image height
-			INFILE  = "kodim23.hex", 	// image file
+			INFILE  = "kodim24.hex", 	// image file
 			START_UP_DELAY = 100, 				// Delay during start up time
 			HSYNC_DELAY = 160,					// Delay between HSYNC pulses	
 			VALUE= 100,								// value for Brightness operation
