@@ -1,4 +1,8 @@
-
+//rddata: the entire pixel or only one of RGB?
+//addr: where in the hex file to read the above data (no writing here)
+//xMin, xMax: the samllest and lagrest x coordinates for where the image is not the background colour
+//yMin, yMax: the samllest and lagrest y coordinates for where the image is not the background colour
+//rdy/enable or start/done?
 module boundingBox 
 #(
     parameter WIDTH = 100, 					// Image width
@@ -8,7 +12,7 @@ module boundingBox
 (
     input logic clk, input logic rst_n,
     input logic en, output logic rdy,
-    input logic [7:0] rddata, output logic [7:0] addr,
+    input logic [7:0] rddata, output logic [23:0] addr,
     output logic[10:0] xMin, output logic[10:0] xMax,
     output logic[10:0] yMin, output logic[10:0] yMax
 );
