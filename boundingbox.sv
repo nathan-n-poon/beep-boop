@@ -11,7 +11,7 @@ module boundingBox
 (
     input logic clk, input logic rst_n,
     input logic start, output logic done,
-    input logic [7:0] rddata, output logic [23:0] addr,
+    input logic [15:0] rddata, output logic [23:0] addr,
     output logic[10:0] xMin, output logic[10:0] xMax,
     output logic[10:0] yMin, output logic[10:0] yMax
 );
