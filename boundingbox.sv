@@ -19,7 +19,7 @@ module boundingBox
     logic doneValue;
     logic [10:0] xMinValue = WIDTH - 1;
     logic [10:0] xMaxValue = 0;
-    logic [10:0] yMinValue = HEIGHT * 3 - 1;
+    logic [10:0] yMinValue = HEIGHT - 1;
     logic [10:0] yMaxValue = 0;
 
     assign done = doneValue;
@@ -30,11 +30,13 @@ module boundingBox
 
     reg [10:0] xPos = 0;
     reg [10:0] yPos = 0;
+    reg [10:0] hyPos = 0;
+    reg [2:0] rgb = 0;
 
 
-    assign addr = xPos * HEIGHT * 3 + yPos;
+    assign addr = xPos * HEIGHT * 3 + hyPos;
 
-    enum {init, yIncr, xIncr, finished} state = init;
+    enum {init, yIncr, hyIncr, xIncr, finished} state = init;
 
     //what is state
     always@(posedge clk)
@@ -43,10 +45,11 @@ module boundingBox
         begin
             xMinValue <= WIDTH - 1;
             xMaxValue <= 0;
-            yMinValue <= HEIGHT * 3 - 1;
+            yMinValue <= HEIGHT - 1;
             yMaxValue <= 0;
             xPos <= 0;
             yPos <= 0;
+            hyPos <= 0;
             state <= init;
         end
 
@@ -57,7 +60,7 @@ module boundingBox
                 begin
                     if(start) // start the process when start is asserted
                     begin
-                        state <= yIncr;
+                        state <= hyIncr;
                     end
                     else 
                     begin
@@ -65,21 +68,21 @@ module boundingBox
                     end
                 end
 
-                yIncr:
+                // increment hy, aka y in the hex file, 2 times for every y.
+                hyIncr:
                 begin
-                    if(yPos < HEIGHT * 3 - 1)
-                    begin
-                        yPos <= yPos + 1;
+                    if(rgb < 3) begin // not sure if rgb < 2 or rgb < 3
+                        state <= hyIncr;
+                        rgb <= rgb + 1;
+                        hyPos <= hyPos + 1;
+                    end
+                    else if (rgb == 3 && yPos < HEIGHT - 1 && xPos < WIDTH - 1) begin
                         state <= yIncr;
                     end
-                    else if (yPos == HEIGHT * 3 - 1 && xPos < WIDTH - 1)
-                    begin
-                        xPos <= xPos + 1;
-                        yPos <= 0;
+                    else if (rgb == 3 && yPos == HEIGHT - 1 && xPos < WIDTH - 1) begin
                         state <= xIncr;
                     end
-                    else //if(yPos == HEIGHT * 3 - 1 && xPos == WIDTH - 1)
-                    begin
+                    else begin //rgb == 3 && yPos == HEIGHT - 1 && xPos == WIDTH -1
                         state <= finished;
                     end
 
@@ -95,35 +98,27 @@ module boundingBox
                         end
                         if(yPos < yMinValue)
                         begin
-                            if(yPos%3 == 1) begin
-                                yMinValue <= yPos - 1;
-                            end
-                            else if(yPos%3 == 2) begin
-                                yMinValue <= yPos - 2;
-                            end
-                            else begin
-                                yMinValue <= yPos;
-                            end
+                            yMinValue <= yPos;
                         end
                         if(yPos > yMaxValue)
                         begin
-                            if(yPos%3 == 1) begin
-                                yMaxValue <= yPos - 1;
-                            end
-                            else if(yPos%3 == 2) begin
-                                yMaxValue <= yPos - 2;
-                            end
-                            else begin
-                                yMaxValue <= yPos;
-                            end
+                            yMaxValue <= yPos;
                         end
                     end
                 end
 
-                xIncr:
+                // increment y
+                yIncr:
                 begin
-                    yPos <= yPos + 1;
-                    state <= yIncr;
+                    rgb <= 0;
+                    hyPos <= yPos*3;
+                    state <= hyIncr;
+                    if(yPos < HEIGHT - 1) begin
+                        yPos <= yPos + 1;
+                    end
+                    else begin // y == HEIGHT - 1
+                        yPos <= yPos;
+                    end
 
                     if(rddata >= 5) 
                     begin
@@ -137,27 +132,46 @@ module boundingBox
                         end
                         if(yPos < yMinValue)
                         begin
-                            if(yPos%3 == 1) begin
-                                yMinValue <= yPos - 1;
-                            end
-                            else if(yPos%3 == 2) begin
-                                yMinValue <= yPos - 2;
-                            end
-                            else begin
-                                yMinValue <= yPos;
-                            end
+                            yMinValue <= yPos;
                         end
                         if(yPos > yMaxValue)
                         begin
-                            if(yPos%3 == 1) begin
-                                yMaxValue <= yPos - 1;
-                            end
-                            else if(yPos%3 == 2) begin
-                                yMaxValue <= yPos - 2;
-                            end
-                            else begin
-                                yMaxValue <= yPos;
-                            end
+                            yMaxValue <= yPos;
+                        end
+                    end
+                end
+
+                // increment x
+                xIncr:
+                begin
+                    rgb <= 0;
+                    yPos <= 0;
+                    hyPos <= 0;
+                    state <= hyIncr;
+                    if(xPos < WIDTH - 1) begin
+                        xPos <= xPos + 1;
+                    end
+                    else begin  // xPos == WIDTH - 1
+                        xPos <= xPos;
+                    end
+                    
+                    if(rddata >= 5) 
+                    begin
+                        if(xPos < xMinValue) 
+                        begin
+                            xMinValue <= xPos;
+                        end
+                        if(xPos > xMaxValue)
+                        begin
+                            xMaxValue <= xPos;
+                        end
+                        if(yPos < yMinValue)
+                        begin
+                            yMinValue <= yPos;
+                        end
+                        if(yPos > yMaxValue)
+                        begin
+                            yMaxValue <= yPos;
                         end
                     end
                 end
@@ -168,11 +182,12 @@ module boundingBox
                     begin
                         xMinValue <= WIDTH - 1;
                         xMaxValue <= 0;
-                        yMinValue <= HEIGHT * 3 - 1;
+                        yMinValue <= HEIGHT - 1;
                         yMaxValue <= 0;
                         xPos <= 0;
                         yPos <= 0;
-                        state <= yIncr;
+                        hyPos <= 0;
+                        state <= hyIncr;
                     end
                     else
                     begin
