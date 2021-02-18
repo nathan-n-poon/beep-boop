@@ -32,8 +32,6 @@ module cropping
     reg [10:0] yPos = yMax;
     reg [1:0] rgb = 0;
 
-    reg [2:0] paddingCounter = 0;
-
     enum {init, readMem, writeMem, padding, finished} state = init;
 
     logic validPixel;
@@ -48,7 +46,6 @@ module cropping
             xPos <= xMin;
             yPos <= yMax;
             rgb <= 0;
-            paddingCounter <= 0;
 
             state <= init;
         end
@@ -102,7 +99,7 @@ module cropping
                         end
                         else
                         begin
-                            if(((xPos - xMin + 1) & 3) != 0)
+                            if(((3*(xPos - xMin + 1)) & 3) != 0)
                             begin
                                 state <= padding;
                             end
@@ -119,7 +116,6 @@ module cropping
                                     xPos <= xMin;
                                     yPos <= yMax;
                                     rgb <= 0;
-                                    paddingCounter <= 0;
                                     state <= finished;
                                 end
                             end
@@ -131,10 +127,9 @@ module cropping
                 begin
                     writeAddrValue <= writeAddrValue + 1;
 
-                    if(((xPos - xMin + 1) & 3) != 0)
+                    if(((3*(xPos - xMin + 1)) & 3) != 0)
                     begin
                         state <= padding;
-                        paddingCounter <= paddingCounter + 1;
                         xPos <= xPos + 1;
                     end
                     else
@@ -150,7 +145,6 @@ module cropping
                             xPos <= xMin;
                             yPos <= yMax;
                             rgb <= 0;
-                            paddingCounter <= 0;
                             state <= finished;
                         end
                     end
@@ -164,7 +158,6 @@ module cropping
                         xPos <= xMin;
                         yPos <= yMax;
                         rgb <= 0;
-                        paddingCounter <= 0;
                         state <= readMem;
                     end
                     else
