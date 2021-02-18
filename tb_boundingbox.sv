@@ -1,24 +1,56 @@
-module tb_boundingbox();
-    logic clk, rst_n;
+module tb_boundingBox();
+    logic CLOCK_50;
+    logic [3:0] KEY;
 
-    logic start, done;
-    logic [15:0] rddata;
-    logic [23:0] addr;
-    logic[10:0] xMin, xMax, yMin, yMax;
+    // instiate boundingBoxTop
+    boundingBoxTop dut(.CLOCK_50(CLOCK_50), .KEY(KEY));
 
-    // instiate top_boundingbox
+    // clock cycle
+    initial begin
+        CLOCK_50 = 1'b0; 
+        forever begin #10 CLOCK_50 = ~CLOCK_50;  end
+    end
 
     initial begin
-        // please insert test here
+        // reset
+        #20;
+        $readmemh("D:/main/2020fall/poo/beep-boop/kodim24.hex", dut.ram);
+        #20;
+
+        
+        KEY[3] = 1'b0;
+        #20;
+        KEY[3] = 1'b1;
+        #200;
+
+        while(~dut.done)
+        begin
+            #10;
+        end
+
+        $display("done!");
+
+        
     end
 endmodule
 
-module top_boundingbox();
 
-// instantiate a RAM
 
-// instantiate boundingbox
-boundingbox boundingbox(.clk(clk), .rst_n(rst_n), .start(start), .done(done),
-                            .rddata(rddata), .addr(addr),
-                            .xMin(xMin), .xMax(xMax),
-                            .yMin(yMin), .yMax(yMax));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

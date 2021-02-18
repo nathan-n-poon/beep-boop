@@ -6,15 +6,15 @@ module cropping
 (
     input logic clk, input logic rst_n,
     input logic start, output logic done,
-    output logic [23:0] readAddr, input logic [15:0] readdata,
-    output logic [23:0] writeAddr, output logic [15:0] wrdata, output logic wren,
+    output logic [31:0] readAddr, input logic [15:0] readdata,
+    output logic [31:0] writeAddr, output logic [15:0] wrdata, output logic wren,
     input logic[10:0] xMin, input logic[10:0] xMax,
     input logic[10:0] yMin, input logic[10:0] yMax
 );
 
     logic doneValue = 0;
-    logic [23:0] readAddrValue = 0;
-    logic [23:0] writeAddrValue = 54;
+    logic [31:0] readAddrValue = 0;
+    logic [31:0] writeAddrValue = 54;
     logic wrenValue = 0;
     logic [15:0] wrdataValue = 0;
 

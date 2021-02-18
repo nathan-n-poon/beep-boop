@@ -11,7 +11,7 @@ module boundingBox
 (
     input logic clk, input logic rst_n,
     input logic start, output logic done,
-    input logic [15:0] rddata, output logic [23:0] addr,
+    input logic [15:0] rddata, output logic [31:0] addr,
     output logic[10:0] xMin, output logic[10:0] xMax,
     output logic[10:0] yMin, output logic[10:0] yMax
 );
@@ -71,22 +71,22 @@ module boundingBox
                 // increment hy, aka y in the hex file, 2 times for every y.
                 hyIncr:
                 begin
-                    if(rgb < 3) begin // not sure if rgb < 2 or rgb < 3
+                    if(rgb < 2) begin // not sure if rgb < 2 or rgb < 3
                         state <= hyIncr;
                         rgb <= rgb + 1;
                         hyPos <= hyPos + 1;
                     end
-                    else if (rgb == 3 && yPos < HEIGHT - 1 && xPos < WIDTH - 1) begin
+                    else if (rgb == 2 && yPos < HEIGHT - 1 && xPos < WIDTH - 1) begin
                         state <= yIncr;
                     end
-                    else if (rgb == 3 && yPos == HEIGHT - 1 && xPos < WIDTH - 1) begin
+                    else if (rgb == 2 && yPos == HEIGHT - 1 && xPos < WIDTH - 1) begin
                         state <= xIncr;
                     end
-                    else begin //rgb == 3 && yPos == HEIGHT - 1 && xPos == WIDTH -1
+                    else begin //rgb == 2 && yPos == HEIGHT - 1 && xPos == WIDTH -1
                         state <= finished;
                     end
 
-                    if(rddata >= 5) 
+                    if(rddata < 250) 
                     begin
                         if(xPos < xMinValue) 
                         begin
@@ -120,7 +120,7 @@ module boundingBox
                         yPos <= yPos;
                     end
 
-                    if(rddata >= 5) 
+                    if(rddata < 250) 
                     begin
                         if(xPos < xMinValue) 
                         begin
@@ -155,7 +155,7 @@ module boundingBox
                         xPos <= xPos;
                     end
                     
-                    if(rddata >= 5) 
+                    if(rddata < 250) 
                     begin
                         if(xPos < xMinValue) 
                         begin
@@ -201,15 +201,15 @@ module boundingBox
     //output
     always @(*)
     begin
-        doneValue = 0;
+        doneValue <= 0;
         begin
             if(state != finished) 
             begin
-                doneValue = 0;
+                doneValue <= 0;
             end
             else 
             begin
-                doneValue = 1;
+                doneValue <= 1;
             end
         end
     end
