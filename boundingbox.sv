@@ -111,7 +111,7 @@ module boundingBox
                 yIncr:
                 begin
                     rgb <= 0;
-                    hyPos <= yPos*3;
+                    hyPos <= yPos * 3;
                     state <= hyIncr;
                     if(yPos < HEIGHT - 1) begin
                         yPos <= yPos + 1;
