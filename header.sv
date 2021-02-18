@@ -61,17 +61,55 @@ module header
 
     integer BMP_header [0 : 53 - 1];	
 
+    logic [31:0] area;
+    assign area = (xMax - xMin) * (yMax - yMin);
+
     BMP_header[0] = 66;
     BMP_header[1] = 77;
-    
+
+    // BMP_header[2] = WIDTH - (WIDTH>>8) * 16 * 16;
+    // BMP_header[3] = (WIDTH>>8) - (WIDTH>>16) * 16 *16;
+    // BMP_header[4] = (WIDTH>>16) - (WIDTH>>24) * 16 * 16;
+    // BMP_header[5] = (WIDTH>>24) - (WIDTH>>32) * 16 * 16;
+        
     BMP_header[6] = 0;
     BMP_header[7] = 0;
     BMP_header[8] = 0;
     BMP_header[9] = 0;
+
     BMP_header[10] = 54;
+	BMP_header[11] =  0;
+	BMP_header[12] =  0;
+	BMP_header[13] =  0;
+	BMP_header[14] = 40;
+	BMP_header[15] =  0;
+	BMP_header[16] =  0;
+	BMP_header[17] =  0;
     
-    BMP_header[11] = 40;
-    BMP_header[12] = WIDTH;
+
+    BMP_header[18] = WIDTH - (WIDTH>>8) * 16 * 16;
+    BMP_header[19] = (WIDTH>>8) - (WIDTH>>16) * 16 *16;
+    BMP_header[20] = (WIDTH>>16) - (WIDTH>>24) * 16 * 16;
+    BMP_header[21] = (WIDTH>>24) - (WIDTH>>32) * 16 * 16;
+
+    BMP_header[22] = HEIGHT - (HEIGHT>>8) * 16 * 16;
+    BMP_header[23] = (HEIGHT>>8) - (HEIGHT>>16) * 16 *16;
+    BMP_header[24] = (HEIGHT>>16) - (HEIGHT>>24) * 16 * 16;
+    BMP_header[25] = (HEIGHT>>24) - (HEIGHT>>32) * 16 * 16;
+
+
+
+
+
+                    addr = 0;
+                wren = 1;
+                dividendFloor = area >> 8;
+                remainder = area - dividendFloor * 16 * 16;
+                wrdata = remainder;
+                area = dividendFloor;
+
+
+
     BMP_header[12] = HEIGHT;
     BMP_header[12] = 0;
     

@@ -36,7 +36,7 @@ module cropping
 
     logic validPixel;
 
-    assign validPixel = (xPos <= xMax || xPos >= xMin) && (yPos <= yMax || yPos >= yMin);
+    assign validPixel = (xPos <= xMax && xPos >= xMin) && (yPos <= yMax && yPos >= yMin);
     assign readAddrValue = xPos * HEIGHT * 3 + yPos * 3 + rgb;
 
     always@(posedge clk)
@@ -75,13 +75,14 @@ module cropping
                 readMem:
                 begin
                     // readdataValue <= readdata;
-                    writeAddrValue <= writeAddrValue + 1;
+                    // writeAddrValue <= writeAddrValue + 1;
                     state <= writeMem;
                 end
 
                 writeMem:
                 begin
                     // readdataValue = readdata;
+                    writeAddrValue <= writeAddrValue + 1;
                     if(rgb + 1 < 3)
                     begin
                         rgb <= rgb + 1;
