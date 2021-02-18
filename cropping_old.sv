@@ -29,26 +29,23 @@ module cropping
     assign wrdata = wrdataValue;
 
     reg [10:0] xPos = xMin;
-    reg [10:0] yPos = yMax;
+    reg [10:0] yPos = yMin;
     reg [1:0] rgb = 0;
-
-    reg [2:0] paddingCounter = 0;
 
     enum {init, readMem, writeMem, padding, finished} state = init;
 
     logic validPixel;
 
     assign validPixel = (xPos <= xMax && xPos >= xMin) && (yPos <= yMax && yPos >= yMin);
-    assign readAddrValue = yPos * WIDTH * 3 + xPos * 3 + rgb;
+    assign readAddrValue = xPos * HEIGHT * 3 + yPos * 3 + rgb;
 
     always@(posedge clk)
     begin
         if (!rst_n)
         begin
             xPos <= xMin;
-            yPos <= yMax;
+            yPos <= yMin;
             rgb <= 0;
-            paddingCounter <= 0;
 
             state <= init;
         end
@@ -95,66 +92,28 @@ module cropping
                     else
                     begin
                         rgb <= 0;
-                        if(xPos + 1 < xMax)
+                        if(yPos + 1 < yMax)
                         begin
-                            xPos <= xPos + 1;
+                            yPos <= yPos + 1;
                             state <= readMem;
                         end
                         else
                         begin
-                            if(((xPos - xMin + 1) & 3) != 0)
+                            yPos <= yMin;
+                            if(xPos + 1 < xMax)
                             begin
-                                state <= padding;
+                                xPos <= xPos + 1;
+                                state <= readMem;
                             end
                             else
                             begin
                                 xPos <= xMin;
-                                if(yPos - 1 >= 0)
-                                begin
-                                    yPos <= yPos - 1;
-                                    state <= readMem;
-                                end
-                                else
-                                begin
-                                    xPos <= xMin;
-                                    yPos <= yMax;
-                                    rgb <= 0;
-                                    paddingCounter <= 0;
-                                    state <= finished;
-                                end
+                                yPos <= yMin;
+                                rgb <= 0;
+                                state <= finished;
                             end
                         end
                     end
-                end
-
-                padding:
-                begin
-                    writeAddrValue <= writeAddrValue + 1;
-
-                    if(((xPos - xMin + 1) & 3) != 0)
-                    begin
-                        state <= padding;
-                        paddingCounter <= paddingCounter + 1;
-                        xPos <= xPos + 1;
-                    end
-                    else
-                    begin
-                        xPos <= xMin;
-                        if(yPos - 1 >= 0)
-                        begin
-                            yPos <= yPos - 1;
-                            state <= readMem;
-                        end
-                        else
-                        begin
-                            xPos <= xMin;
-                            yPos <= yMax;
-                            rgb <= 0;
-                            paddingCounter <= 0;
-                            state <= finished;
-                        end
-                    end
-
                 end
 
                 finished:
@@ -162,9 +121,8 @@ module cropping
                     if(start)
                     begin
                         xPos <= xMin;
-                        yPos <= yMax;
+                        yPos <= yMin;
                         rgb <= 0;
-                        paddingCounter <= 0;
                         state <= readMem;
                     end
                     else
@@ -199,13 +157,6 @@ module cropping
                 doneValue = 0;
                 wrenValue = 1;
                 wrdataValue = readdataValue;
-            end
-
-            padding:
-            begin
-                doneValue = 0;
-                wrenValue = 1;
-                wrdataValue = 0;
             end
 
             finished:
