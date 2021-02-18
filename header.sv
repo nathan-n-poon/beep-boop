@@ -68,10 +68,10 @@ module header
     BMP_header[0] = 66;
     BMP_header[1] = 77;
 
-    BMP_header[2] = area - (area>>8) * 16 * 16;
-    BMP_header[3] = (area>>8) - (area>>16) * 16 *16;
-    BMP_header[4] = (area>>16) - (area>>24) * 16 * 16;
-    BMP_header[5] = (area>>24) - (area>>32) * 16 * 16;
+    BMP_header[2] = area+54 - (area>>8) * 16 * 16;
+    BMP_header[3] = (area+54>>8) - (area>>16) * 16 *16;
+    BMP_header[4] = (area+54>>16) - (area>>24) * 16 * 16;
+    BMP_header[5] = (area+54>>24) - (area>>32) * 16 * 16;
         
     BMP_header[6] = 0;
     BMP_header[7] = 0;
@@ -88,15 +88,15 @@ module header
 	BMP_header[17] =  0;
     
 \
-    BMP_header[18] = WIDTH - (WIDTH>>8) * 16 * 16;
-    BMP_header[19] = (WIDTH>>8) - (WIDTH>>16) * 16 *16;
-    BMP_header[20] = (WIDTH>>16) - (WIDTH>>24) * 16 * 16;
-    BMP_header[21] = (WIDTH>>24) - (WIDTH>>32) * 16 * 16;
+    BMP_header[18] = (xMax - xMin + 1) - ((xMax - xMin + 1)>>8) * 16 * 16;
+    BMP_header[19] = ((xMax - xMin + 1)>>8) - ((xMax - xMin + 1)>>16) * 16 *16;
+    BMP_header[20] = ((xMax - xMin + 1)>>16) - ((xMax - xMin + 1)>>24) * 16 * 16;
+    BMP_header[21] = ((xMax - xMin + 1)>>24) - ((xMax - xMin + 1)>>32) * 16 * 16;
 
-    BMP_header[22] = HEIGHT - (HEIGHT>>8) * 16 * 16;
-    BMP_header[23] = (HEIGHT>>8) - (HEIGHT>>16) * 16 *16;
-    BMP_header[24] = (HEIGHT>>16) - (HEIGHT>>24) * 16 * 16;
-    BMP_header[25] = (HEIGHT>>24) - (HEIGHT>>32) * 16 * 16;
+    BMP_header[22] = (yMax - yMin + 1) - ((yMax - yMin + 1)>>8) * 16 * 16;
+    BMP_header[23] = ((yMax - yMin + 1)>>8) - ((yMax - yMin + 1)>>16) * 16 *16;
+    BMP_header[24] = ((yMax - yMin + 1)>>16) - ((yMax - yMin + 1)>>24) * 16 * 16;
+    BMP_header[25] = ((yMax - yMin + 1)>>24) - ((yMax - yMin + 1)>>32) * 16 * 16;
 
 
     BMP_header[12] = HEIGHT;
