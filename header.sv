@@ -32,6 +32,9 @@
 // }
 
 module header 
+#(parameter WIDTH 	= 100,							// Image width
+			HEIGHT 	= 100,								// Image height
+)
 (
     input logic clk, input logic rst_n,
     input logic start, output logic done,
@@ -55,6 +58,24 @@ module header
     logic [15:0] remainder;
 
     enum {init, msb, msb-1, msb-2, lsb, finished} state = init;
+
+    integer BMP_header [0 : 53 - 1];	
+
+    BMP_header[0] = 66;
+    BMP_header[1] = 77;
+    
+    BMP_header[6] = 0;
+    BMP_header[7] = 0;
+    BMP_header[8] = 0;
+    BMP_header[9] = 0;
+    BMP_header[10] = 54;
+    
+    BMP_header[11] = 40;
+    BMP_header[12] = WIDTH;
+    BMP_header[12] = HEIGHT;
+    BMP_header[12] = 0;
+    
+
 
     always@(posedge clk)
     begin
