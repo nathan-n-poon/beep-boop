@@ -31,6 +31,7 @@ module cropping
     reg [10:0] xPos = xMin;
     reg [10:0] yPos = yMax;
     reg [1:0] rgb = 0;
+    reg [1:0] paddingCounter = 0;
 
     enum {init, readMem, writeMem, padding, finished} state = init;
 
@@ -46,6 +47,7 @@ module cropping
             xPos <= xMin;
             yPos <= yMax;
             rgb <= 0;
+            paddingCounter <= 0;
 
             state <= init;
         end
@@ -97,9 +99,9 @@ module cropping
                             xPos <= xPos + 1;
                             state <= readMem;
                         end
-                        else
+                        else // 3 pixels * picture width + padding % 4?
                         begin
-                            if(((3*(xPos - xMin + 1)) & 3) != 0)
+                            if(((3*(xPos - xMin + 1) + paddingCounter) & 3) != 0)
                             begin
                                 state <= padding;
                             end
@@ -116,6 +118,7 @@ module cropping
                                     xPos <= xMin;
                                     yPos <= yMax;
                                     rgb <= 0;
+                                    paddingCounter <= 0; //finish padding, reset counter
                                     state <= finished;
                                 end
                             end
@@ -127,10 +130,11 @@ module cropping
                 begin
                     writeAddrValue <= writeAddrValue + 1;
 
-                    if(((3*(xPos - xMin + 1)) & 3) != 0)
+                    // check multiple of 4
+                    if(((3*(xPos - xMin + 1) + paddingCounter) & 3) != 0)
                     begin
                         state <= padding;
-                        xPos <= xPos + 1;
+                        paddingCounter <= paddingCounter + 1; // add 1 byte of padding at a time
                     end
                     else
                     begin
@@ -145,6 +149,7 @@ module cropping
                             xPos <= xMin;
                             yPos <= yMax;
                             rgb <= 0;
+                            paddingCounter <= 0; //finish padding, reset counter
                             state <= finished;
                         end
                     end
