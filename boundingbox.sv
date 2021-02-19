@@ -30,13 +30,12 @@ module boundingBox
 
     reg [10:0] xPos = 0;
     reg [10:0] yPos = 0;
-    reg [10:0] hyPos = 0;
-    reg [2:0] rgb = 0;
+    reg [1:0] rgb = 0;
 
 
-    assign addr = xPos * HEIGHT * 3 + hyPos;
+    assign addr = yPos * WIDTH * 3 + xPos * 3 + rgb;
 
-    enum {init, yIncr, hyIncr, xIncr, finished} state = init;
+    enum {init, readMem, finished} state = init;
 
     //what is state
     always@(posedge clk)
@@ -49,7 +48,6 @@ module boundingBox
             yMaxValue <= 0;
             xPos <= 0;
             yPos <= 0;
-            hyPos <= 0;
             state <= init;
         end
 
@@ -60,7 +58,7 @@ module boundingBox
                 begin
                     if(start) // start the process when start is asserted
                     begin
-                        state <= hyIncr;
+                        state <= readMem;
                     end
                     else 
                     begin
@@ -68,110 +66,57 @@ module boundingBox
                     end
                 end
 
-                // increment hy, aka y in the hex file, 2 times for every y.
-                hyIncr:
+                readMem:
                 begin
-                    if(rgb < 2) begin // not sure if rgb < 2 or rgb < 3
-                        state <= hyIncr;
+                    if(rddata < 250) 
+                    begin
+                        if(xPos < xMinValue) 
+                        begin
+                            xMinValue <= xPos;
+                        end
+                        if(xPos > xMaxValue)
+                        begin
+                            xMaxValue <= xPos;
+                        end
+                        if(yPos < yMinValue)
+                        begin
+                            yMinValue <= yPos;
+                        end
+                        if(yPos > yMaxValue)
+                        begin
+                            yMaxValue <= yPos;
+                        end
+                    end
+
+                    if(rgb + 1 < 3)
+                    begin
                         rgb <= rgb + 1;
-                        hyPos <= hyPos + 1;
-                    end
-                    else if (rgb == 2 && yPos < HEIGHT - 1 && xPos < WIDTH - 1) begin
-                        state <= yIncr;
-                    end
-                    else if (rgb == 2 && yPos == HEIGHT - 1 && xPos < WIDTH - 1) begin
-                        state <= xIncr;
-                    end
-                    else begin //rgb == 2 && yPos == HEIGHT - 1 && xPos == WIDTH -1
-                        state <= finished;
-                    end
-
-                    if(rddata < 250) 
-                    begin
-                        if(xPos < xMinValue) 
-                        begin
-                            xMinValue <= xPos;
-                        end
-                        if(xPos > xMaxValue)
-                        begin
-                            xMaxValue <= xPos;
-                        end
-                        if(yPos < yMinValue)
-                        begin
-                            yMinValue <= yPos;
-                        end
-                        if(yPos > yMaxValue)
-                        begin
-                            yMaxValue <= yPos;
-                        end
-                    end
-                end
-
-                // increment y
-                yIncr:
-                begin
-                    rgb <= 0;
-                    hyPos <= yPos * 3;
-                    state <= hyIncr;
-                    if(yPos < HEIGHT - 1) begin
-                        yPos <= yPos + 1;
-                    end
-                    else begin // y == HEIGHT - 1
-                        yPos <= yPos;
-                    end
-
-                    if(rddata < 250) 
-                    begin
-                        if(xPos < xMinValue) 
-                        begin
-                            xMinValue <= xPos;
-                        end
-                        if(xPos > xMaxValue)
-                        begin
-                            xMaxValue <= xPos;
-                        end
-                        if(yPos < yMinValue)
-                        begin
-                            yMinValue <= yPos;
-                        end
-                        if(yPos > yMaxValue)
-                        begin
-                            yMaxValue <= yPos;
-                        end
-                    end
-                end
-
-                // increment x
-                xIncr:
-                begin
-                    rgb <= 0;
-                    yPos <= 0;
-                    hyPos <= 0;
-                    state <= hyIncr;
-                    if(xPos < WIDTH - 1) begin
-                        xPos <= xPos + 1;
-                    end
-                    else begin  // xPos == WIDTH - 1
-                        xPos <= xPos;
+                        state <= readMem;
                     end
                     
-                    if(rddata < 250) 
+                    else
                     begin
-                        if(xPos < xMinValue) 
+                        rgb <= 0;
+                        if(xPos + 1 < WIDTH)
                         begin
-                            xMinValue <= xPos;
+                            xPos <= xPos + 1;
+                            state <= readMem;
                         end
-                        if(xPos > xMaxValue)
+                        else // 3 pixels * picture width + padding % 4?
                         begin
-                            xMaxValue <= xPos;
-                        end
-                        if(yPos < yMinValue)
-                        begin
-                            yMinValue <= yPos;
-                        end
-                        if(yPos > yMaxValue)
-                        begin
-                            yMaxValue <= yPos;
+                            xPos <= 0;
+                            if(yPos + 1 < HEIGHT)
+                            begin
+                                yPos <= yPos + 1;
+                                state <= readMem;
+                            end
+                            else
+                            begin
+                                xPos <= 0;
+                                yPos <= 0;
+                                rgb <= 0;
+                                state <= finished;
+                            end
                         end
                     end
                 end
@@ -186,8 +131,7 @@ module boundingBox
                         yMaxValue <= 0;
                         xPos <= 0;
                         yPos <= 0;
-                        hyPos <= 0;
-                        state <= hyIncr;
+                        state <= readMem;
                     end
                     else
                     begin
