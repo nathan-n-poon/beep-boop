@@ -5,6 +5,8 @@
 //start/done: on reset, done = 0. when start = 1, we drop done and start processing. AFter processing, done is raised. We restart when start is reasserted. done indicates valid data.
 module boundingBox 
 #(
+    // parameter WIDTH = 626, 					// Image width for sushi
+	// HEIGHT 	= 417 						    // Image height for sushi
     parameter WIDTH = 100, 					// Image width
 	HEIGHT 	= 100 						    // Image height
 )

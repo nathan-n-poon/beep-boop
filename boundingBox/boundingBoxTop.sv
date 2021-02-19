@@ -9,8 +9,9 @@ module boundingBoxTop(
     // ram[index] = 
     // read, rddata <= ram[index]
     // write, ram[index] <= wrdata
+    // logic [7:0] ram [783125:0];
     logic [7:0] ram [29999:0];
-
+    
     // instantiate boundingbox
     logic[15:0] rddata;
     logic[31:0] addr;
