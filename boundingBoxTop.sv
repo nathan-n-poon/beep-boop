@@ -9,7 +9,7 @@ module boundingBoxTop(
     // ram[index] = 
     // read, rddata <= ram[index]
     // write, ram[index] <= wrdata
-    logic [7:0] ram [30000:0];
+    logic [7:0] ram [29999:0];
 
     // instantiate boundingbox
     logic[15:0] rddata;
@@ -39,11 +39,11 @@ module boundingBoxTop(
                 processing: begin
                     start <= 0; // deassert start
                     rddata <= ram[addr]; // pass rddata to boundingBox
-                    if(~done) begin
-                        state <= processing;
+                    if(done) begin
+                        state <= finished;
                     end
                     else begin
-                        state <= finished;
+                        state <= processing;
                     end
                 end
                 finished: begin
