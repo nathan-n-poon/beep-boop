@@ -98,13 +98,14 @@ module header
     BMP_header[52] = 0;
     BMP_header[53] = 0;
 
+    enum {init, writing, finished} state = init;
+    integer i = 0;
+
     always@(posedge clk)
     begin
         if (!rst_n)
         begin
-            addrValue <= 0;
-            wrenValue <= 0;
-            wrdataValue <= 0;
+            i <= 0;
             state <= init;
         end
 
@@ -115,8 +116,7 @@ module header
                 begin
                     if(start) // start the process when start is asserted
                     begin
-                        area <= (xMax - xMin) * (yMax - yMin);
-                        state <= msb;
+                        state <= writing;
                     end
                     else 
                     begin
