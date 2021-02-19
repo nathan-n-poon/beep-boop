@@ -19,19 +19,22 @@ module header
     assign addr = addrValue;
     assign wren = wrenValue;
     assign wrdata = wrdataValue;
-    
-    logic [31:0] size;
-    logic [15:0] dividendFloor;
-    logic [15:0] remainder;
 
     integer BMP_header [0 : 53 - 1];	
 
     logic [31:0] area;
-    logic paddedWidth [23:0] = ((((3*(xPos - xMin + 1) & 3) == 0) && (xMax - xMin + 1)) || ((((3*(xPos - xMin + 2) & 3) == 0) && (xMax - xMin + 1)) || ((((3*(xPos - xMin + 3) & 3) == 0) && (xMax - xMin + 1)) || ((((3*(xPos - xMin + 4) == 0) && (xMax - xMin + 1));
+
+    logic nonPaddedWidth [23:0] = 3*(xMax - xMin + 1);
+    logic modFourZero [23:0] = ((nonPaddedWidth & 3) == 0) && nonPaddedWidth;
+    logic modFourOne [23:0] = (((nonPaddedWidth + 1) & 3) == 0) && (nonPaddedWidth + 1);
+    logic modFourTwo [23:0] = (((nonPaddedWidth + 2) & 3) == 0) && (nonPaddedWidth + 2);
+    logic modFourThree [23:0] = (((nonPaddedWidth + 3) & 3) == 0) && (nonPaddedWidth + 3);
+
+    logic paddedWidth [23:0] = modFourZero || modFourOne || modFourTwo || modFourThree;
     assign area = paddedWidth * (yMax - yMin + 1);
 
-    BMP_header[0] = 66;
-    BMP_header[1] = 77;
+    BMP_header[0] = 66; //B
+    BMP_header[1] = 77; //M
 
     BMP_header[2] = area+54 - (area>>8) * 16 * 16;
     BMP_header[3] = (area+54>>8) - (area>>16) * 16 *16;
@@ -98,13 +101,13 @@ module header
     BMP_header[52] = 0;
     BMP_header[53] = 0;
 
+    integer i = 0;
+
     always@(posedge clk)
     begin
         if (!rst_n)
         begin
-            addrValue <= 0;
-            wrenValue <= 0;
-            wrdataValue <= 0;
+            i <= 0;
             state <= init;
         end
 
@@ -115,7 +118,7 @@ module header
                 begin
                     if(start) // start the process when start is asserted
                     begin
-                        area <= (xMax - xMin) * (yMax - yMin);
+                        i <= 0;
                         state <= msb;
                     end
                     else 
