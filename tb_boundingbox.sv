@@ -14,7 +14,8 @@ module tb_boundingBox();
     initial begin
         // reset
         #20;
-        $readmemh("C:/Users/natha/OneDrive/Documents/MATLAB/test.hex", dut.ram);
+        // D:/main/2020fall/poo/beep-boop/kodim24.hex
+        $readmemh("D:/main/2020fall/poo/beep-boop/kodim24.hex", dut.ram);
         #20;
 
         
