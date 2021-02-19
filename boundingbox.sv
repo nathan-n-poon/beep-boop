@@ -16,7 +16,7 @@ module boundingBox
     output logic[10:0] yMin, output logic[10:0] yMax
 );
     
-    logic doneValue;
+    logic doneValue = 0;
     logic [10:0] xMinValue = WIDTH - 1;
     logic [10:0] xMaxValue = 0;
     logic [10:0] yMinValue = HEIGHT - 1;
