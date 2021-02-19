@@ -29,8 +29,12 @@ module boundingBox
     assign yMax = yMaxValue;
 
     reg [10:0] xPos = 0;
-    reg [10:0] yPos = HEIGHT - 1;
+    reg signed [10:0] yPos = 0;
     reg [1:0] rgb = 0;
+    reg signed [10:0] zero = 0;
+    reg signed [10:0] yposm1;
+    
+    assign yposm1 = yPos -1;
 
 
     assign addr = yPos * WIDTH * 3 + xPos * 3 + rgb;
@@ -47,7 +51,7 @@ module boundingBox
             yMinValue <= HEIGHT - 1;
             yMaxValue <= 0;
             xPos <= 0;
-            yPos <= HEIGHT - 1;
+            yPos <= 0;
             state <= init;
         end
 
@@ -105,15 +109,15 @@ module boundingBox
                         else // 3 pixels * picture width + padding % 4?
                         begin
                             xPos <= 0;
-                            if(yPos - 1 > 0)
+                            if(yPos + 1 < HEIGHT)
                             begin
-                                yPos <= yPos - 1;
+                                yPos <= yPos + 1;
                                 state <= readMem;
                             end
                             else
                             begin
                                 xPos <= 0;
-                                yPos <= HEIGHT - 1;
+                                yPos <= 0;
                                 rgb <= 0;
                                 state <= finished;
                             end
@@ -130,7 +134,7 @@ module boundingBox
                         yMinValue <= HEIGHT - 1;
                         yMaxValue <= 0;
                         xPos <= 0;
-                        yPos <= HEIGHT - 1;
+                        yPos <= 0;
                         state <= readMem;
                     end
                     else
