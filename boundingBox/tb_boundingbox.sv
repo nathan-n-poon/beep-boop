@@ -21,7 +21,7 @@ module tb_boundingBox();
 
         
         KEY[3] = 1'b0;
-        #10;
+        #20;
         KEY[3] = 1'b1;
         #200;
 
@@ -35,7 +35,7 @@ module tb_boundingBox();
         begin
             $display("expected values: 28 29 79 65 \n");
             $display("actual values: %d %d %d %d \n", dut.xMin, dut.yMin, dut.xMax, dut.yMax);
-            $stop;
+            // $stop;
         end
 
         #20;
@@ -46,7 +46,7 @@ module tb_boundingBox();
 
         
         KEY[3] = 1'b0;
-        #10;
+        #20;
         KEY[3] = 1'b1;
         #200;
 
@@ -58,7 +58,9 @@ module tb_boundingBox();
         assert(dut.xMin == 28 && dut.yMin == 34 && dut.xMax == 69 && dut.yMax == 78)
                 else
         begin
-            $stop;
+            $display("expected values: 28 34 69 78 \n");
+            $display("actual values: %d %d %d %d \n", dut.xMin, dut.yMin, dut.xMax, dut.yMax);
+            // $stop;
         end
 
         #20;
@@ -69,7 +71,7 @@ module tb_boundingBox();
 
         
         KEY[3] = 1'b0;
-        #10;
+        #20;
         KEY[3] = 1'b1;
         #200;
 
@@ -81,7 +83,9 @@ module tb_boundingBox();
         assert(dut.xMin == 27 && dut.yMin == 27 && dut.xMax == 81 && dut.yMax == 78)
                 else
         begin
-            $stop;
+            $display("expected values: 27 27 81 78 \n");
+            $display("actual values: %d %d %d %d \n", dut.xMin, dut.yMin, dut.xMax, dut.yMax);
+            // $stop;
         end
 
         
