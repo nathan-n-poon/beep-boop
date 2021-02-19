@@ -28,10 +28,10 @@ module cropping
     assign wren = wrenValue;
     assign wrdata = wrdataValue;
 
-    reg [10:0] xPos = xMin;
-    reg [10:0] yPos = yMax;
-    reg [1:0] rgb = 0;
-    reg [1:0] paddingCounter = 0;
+    logic [10:0] xPos;
+    logic [10:0] yPos;
+    logic [1:0] rgb = 0;
+    logic [1:0] paddingCounter = 0;
 
     enum {init, readMem, writeMem, padding, finished} state = init;
 
@@ -45,10 +45,9 @@ module cropping
         if (!rst_n)
         begin
             xPos <= xMin;
-            yPos <= yMax;
+            yPos <= yMin;
             rgb <= 0;
             paddingCounter <= 0;
-
             state <= init;
         end
 
@@ -59,14 +58,11 @@ module cropping
                 begin
                     if(start) // start the process when start is asserted
                     begin
-                        if(validPixel)
-                        begin
-                            state <= readMem;
-                        end
-                        else
-                        begin
-                            state <= finished;
-                        end
+                        xPos <= xMin;
+                        yPos <= yMin;
+                        rgb <= 0;
+                        paddingCounter <= 0;
+                        state <= readMem;
                     end
                     else 
                     begin
@@ -94,7 +90,7 @@ module cropping
                     else
                     begin
                         rgb <= 0;
-                        if(xPos + 1 < xMax)
+                        if(xPos + 1 <= xMax)
                         begin
                             xPos <= xPos + 1;
                             state <= readMem;
@@ -108,15 +104,15 @@ module cropping
                             else
                             begin
                                 xPos <= xMin;
-                                if(yPos - 1 >= 0)
+                                if(yPos + 1 <= yMax)
                                 begin
-                                    yPos <= yPos - 1;
+                                    yPos <= yPos + 1;
                                     state <= readMem;
                                 end
                                 else
                                 begin
                                     xPos <= xMin;
-                                    yPos <= yMax;
+                                    yPos <= yMin;
                                     rgb <= 0;
                                     paddingCounter <= 0; //finish padding, reset counter
                                     state <= finished;
@@ -139,15 +135,15 @@ module cropping
                     else
                     begin
                         xPos <= xMin;
-                        if(yPos - 1 >= 0)
+                        if(yPos + 1 <= yMax)
                         begin
-                            yPos <= yPos - 1;
+                            yPos <= yPos + 1;
                             state <= readMem;
                         end
                         else
                         begin
                             xPos <= xMin;
-                            yPos <= yMax;
+                            yPos <= yMin;
                             rgb <= 0;
                             paddingCounter <= 0; //finish padding, reset counter
                             state <= finished;
@@ -161,7 +157,7 @@ module cropping
                     if(start)
                     begin
                         xPos <= xMin;
-                        yPos <= yMax;
+                        yPos <= yMin;
                         rgb <= 0;
                         state <= readMem;
                     end

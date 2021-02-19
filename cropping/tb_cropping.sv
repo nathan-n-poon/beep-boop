@@ -1,9 +1,10 @@
 module tb_cropping();
     logic CLOCK_50;
     logic [3:0] KEY;
+    logic done;
 
     // instiate boundingBoxTop
-    cropping dut(.CLOCK_50(CLOCK_50), .KEY(KEY));
+    cropTop dut(.CLOCK_50(CLOCK_50), .KEY(KEY), .done(done));
 
     // clock cycle
     initial begin
@@ -16,10 +17,12 @@ module tb_cropping();
         #20;
         // D:/main/2020fall/poo/beep-boop/kodim24.hex
         // $readmemh("D:/main/2020fall/poo/beep-boop/kodim24.hex", dut.ram);
-        $readmemh("C:/Users/natha/OneDrive/Documents/MATLAB/test.hex", dut.ram);
+        $readmemh("../MATLAB/square.hex", dut.readMem);
+        
         #20;
 
-        
+        KEY[3] = 1'b1;
+        #10;
         KEY[3] = 1'b0;
         #10;
         KEY[3] = 1'b1;
@@ -30,6 +33,7 @@ module tb_cropping();
             #10;
         end
 
+        $writememh("../MATLAB/output.hex", dut.writeMem);
         $display("done!");
         $stop;
 
