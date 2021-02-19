@@ -13,7 +13,7 @@ module cropping
 );
 
     logic doneValue = 0;
-    logic [31:0] readAddrValue = 0;
+    logic [31:0] readAddrValue;
     logic [31:0] writeAddrValue = 54;
     logic wrenValue = 0;
     logic [15:0] wrdataValue = 0;
@@ -177,7 +177,6 @@ module cropping
     always @(*)
     begin
         case (state)
-        begin
             init:
             begin
                 doneValue = 0;
@@ -212,7 +211,7 @@ module cropping
                 wrenValue = 0;
                 wrdataValue = 0;
             end
-        end
+        endcase
         
     end
 
