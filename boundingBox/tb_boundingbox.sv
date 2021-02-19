@@ -14,9 +14,8 @@ module tb_boundingBox();
     initial begin
         // reset
         #20;
-        // D:/main/2020fall/poo/beep-boop/kodim24.hex
-        // $readmemh("D:/main/2020fall/poo/beep-boop/kodim24.hex", dut.ram);
-        $readmemh("C:/Users/natha/OneDrive/Documents/MATLAB/square.hex", dut.ram);
+        $readmemh("D:/main/2020fall/poo/beep-boop/MATLAB/square.hex", dut.ram);
+        // $readmemh("C:/Users/natha/OneDrive/Documents/MATLAB/square.hex", dut.ram);
         #20;
 
         
@@ -39,9 +38,8 @@ module tb_boundingBox();
         end
 
         #20;
-        // D:/main/2020fall/poo/beep-boop/kodim24.hex
-        // $readmemh("D:/main/2020fall/poo/beep-boop/kodim24.hex", dut.ram);
-        $readmemh("C:/Users/natha/OneDrive/Documents/MATLAB/triangle.hex", dut.ram);
+        $readmemh("D:/main/2020fall/poo/beep-boop/MATLAB/triangle.hex", dut.ram);
+        // $readmemh("C:/Users/natha/OneDrive/Documents/MATLAB/triangle.hex", dut.ram);
         #20;
 
         
@@ -64,9 +62,8 @@ module tb_boundingBox();
         end
 
         #20;
-        // D:/main/2020fall/poo/beep-boop/kodim24.hex
-        // $readmemh("D:/main/2020fall/poo/beep-boop/kodim24.hex", dut.ram);
-        $readmemh("C:/Users/natha/OneDrive/Documents/MATLAB/circle.hex", dut.ram);
+        $readmemh("D:/main/2020fall/poo/beep-boop/MATLAB/circle.hex", dut.ram);
+        // $readmemh("C:/Users/natha/OneDrive/Documents/MATLAB/circle.hex", dut.ram);
         #20;
 
         
@@ -89,9 +86,8 @@ module tb_boundingBox();
         end
 
         #20;
-        // D:/main/2020fall/poo/beep-boop/kodim24.hex
-        // $readmemh("D:/main/2020fall/poo/beep-boop/kodim24.hex", dut.ram);
-        $readmemh("C:/Users/natha/OneDrive/Documents/MATLAB/shape.hex", dut.ram);
+        $readmemh("D:/main/2020fall/poo/beep-boop/MATLAB/shape.hex", dut.ram);
+        // $readmemh("C:/Users/natha/OneDrive/Documents/MATLAB/shape.hex", dut.ram);
         #20;
 
         
@@ -114,9 +110,8 @@ module tb_boundingBox();
         end
 
         #20;
-        // D:/main/2020fall/poo/beep-boop/kodim24.hex
-        // $readmemh("D:/main/2020fall/poo/beep-boop/kodim24.hex", dut.ram);
-        $readmemh("C:/Users/natha/OneDrive/Documents/MATLAB/bottomRight.hex", dut.ram);
+        $readmemh("D:/main/2020fall/poo/beep-boop/MATLAB/bottomRight.hex", dut.ram);
+        // $readmemh("C:/Users/natha/OneDrive/Documents/MATLAB/bottomRight.hex", dut.ram);
         #20;
 
         
@@ -140,9 +135,8 @@ module tb_boundingBox();
 
 
                 #20;
-        // D:/main/2020fall/poo/beep-boop/kodim24.hex
-        // $readmemh("D:/main/2020fall/poo/beep-boop/kodim24.hex", dut.ram);
-        $readmemh("C:/Users/natha/OneDrive/Documents/MATLAB/topLeft.hex", dut.ram);
+        $readmemh("D:/main/2020fall/poo/beep-boop/MATLAB/topLeft.hex", dut.ram);
+        // $readmemh("C:/Users/natha/OneDrive/Documents/MATLAB/topLeft.hex", dut.ram);
         #20;
 
         

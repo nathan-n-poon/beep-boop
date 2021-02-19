@@ -32,8 +32,8 @@ module boundingBox
     reg [10:0] yPos = 0;
     reg [1:0] rgb = 0;
 
-
-    assign addr = (HEIGHT - yPos - 1) * WIDTH * 3 + xPos * 3 + rgb;
+    // xPos is not at its max, don't want to read onto the next pixel
+    assign addr = (rgb == 2 && xPos != 99)? (HEIGHT - yPos - 1) * WIDTH * 3 + xPos * 3 + rgb + 1 : (HEIGHT - yPos - 1) * WIDTH * 3 + xPos * 3 + rgb;
 
     enum {init, readMem, finished} state = init;
 
