@@ -1,39 +1,6 @@
-// #include <stdio.h>
-// //3437096703
-// int main() {
-//     // int x = 1128 >> 4;
-//     // printf("%d \n", x);
-//     // printf("%d", 1128 - x*16);
-    
-    //msb
-//     long orig = 3437096703;
-//     long divideBoi = orig >> 8;
-//     long remainder = orig - divideBoi * 16 * 16;
-//     printf("%ld %ld %ld\n", orig, divideBoi, remainder);
-    
-    //msb - 1
-//     orig = divideBoi;
-//     divideBoi = orig >> 8;
-//     remainder = orig - divideBoi * 16 * 16;
-//     printf("%ld %ld %ld\n", orig, divideBoi, remainder); 
-    
-    //msb - 2
-//     orig = divideBoi;
-//     divideBoi = orig >> 8;
-//     remainder = orig - divideBoi * 16 * 16;
-//     printf("%ld %ld %ld\n", orig, divideBoi, remainder);
-    
-    //lsb
-//     orig = divideBoi;
-//     divideBoi = orig >> 8;
-//     remainder = orig - divideBoi * 16 * 16;
-//     printf("%ld %ld %ld\n", orig, divideBoi, remainder);
-//     return 0;
-// }
-
 module header 
 #(parameter WIDTH 	= 100,							// Image width
-			HEIGHT 	= 100,								// Image height
+			HEIGHT 	= 100								// Image height
 )
 (
     input logic clk, input logic rst_n,
@@ -56,8 +23,6 @@ module header
     logic [31:0] size;
     logic [15:0] dividendFloor;
     logic [15:0] remainder;
-
-    enum {init, msb, msb-1, msb-2, lsb, finished} state = init;
 
     integer BMP_header [0 : 53 - 1];	
 
@@ -87,7 +52,6 @@ module header
 	BMP_header[16] =  0;
 	BMP_header[17] =  0;
     
-\
     BMP_header[18] = (xMax - xMin + 1) - ((xMax - xMin + 1)>>8) * 16 * 16;
     BMP_header[19] = ((xMax - xMin + 1)>>8) - ((xMax - xMin + 1)>>16) * 16 *16;
     BMP_header[20] = ((xMax - xMin + 1)>>16) - ((xMax - xMin + 1)>>24) * 16 * 16;
@@ -98,11 +62,41 @@ module header
     BMP_header[24] = ((yMax - yMin + 1)>>16) - ((yMax - yMin + 1)>>24) * 16 * 16;
     BMP_header[25] = ((yMax - yMin + 1)>>24) - ((yMax - yMin + 1)>>32) * 16 * 16;
 
+    BMP_header[26] = 1;
+    BMP_header[27] = 0;
 
-    BMP_header[12] = HEIGHT;
-    BMP_header[12] = 0;
-    
+    BMP_header[28] = 24;
+    BMP_header[29] = 0;
 
+    BMP_header[30] = 0
+    BMP_header[31] = 0
+    BMP_header[32] = 0
+    BMP_header[33] = 0
+
+    BMP_header[34] = area - (area>>8) * 16 * 16;
+    BMP_header[35] = (area>>8) - (area>>16) * 16 *16;
+    BMP_header[36] = (area>>16) - (area>>24) * 16 * 16;
+    BMP_header[37] = (area>>24) - (area>>32) * 16 * 16;
+
+    BMP_header[38] = 0;
+    BMP_header[39] = 0;
+    BMP_header[40] = 0;
+    BMP_header[41] = 0;
+
+    BMP_header[42] = 0;
+    BMP_header[43] = 0;
+    BMP_header[44] = 0;
+    BMP_header[45] = 0;
+
+    BMP_header[46] = 0;
+    BMP_header[47] = 0;
+    BMP_header[48] = 0;
+    BMP_header[49] = 0;
+
+    BMP_header[50] = 0;
+    BMP_header[51] = 0;
+    BMP_header[52] = 0;
+    BMP_header[53] = 0;
 
     always@(posedge clk)
     begin
