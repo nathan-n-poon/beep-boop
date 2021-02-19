@@ -2,6 +2,8 @@ module tb_cropping();
     logic CLOCK_50;
     logic [3:0] KEY;
     logic done;
+    integer i;
+    integer fd;
 
     // instiate boundingBoxTop
     cropTop dut(.CLOCK_50(CLOCK_50), .KEY(KEY), .done(done));
@@ -33,7 +35,12 @@ module tb_cropping();
             #10;
         end
 
-        $writememh("../MATLAB/output.hex", dut.writeMem);
+        // $fwrite(fd, "%c", BMP_header[i][7:0]);
+        // $writememh("../MATLAB/output.hex", dut.writeMem);
+        fd = $fopen("output.bmp", "wb+");
+        for(i=0; i<5826; i=i+1) begin
+            $fwrite(fd, "%c", dut.writeMem[i][7:0]); // write the header
+        end
         $display("done!");
         $stop;
 

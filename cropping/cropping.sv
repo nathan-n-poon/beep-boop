@@ -38,7 +38,7 @@ module cropping
     logic validPixel;
 
     assign validPixel = (xPos <= xMax && xPos >= xMin) && (yPos <= yMax && yPos >= yMin);
-    assign readAddrValue = yPos * WIDTH * 3 + xPos * 3 + rgb;
+    assign readAddrValue = (HEIGHT - yPos - 1) * WIDTH * 3 + xPos * 3 + rgb;
 
     always@(posedge clk)
     begin
