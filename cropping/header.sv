@@ -37,20 +37,6 @@ module header
     assign modFourOne = (((nonPaddedWidth + 1) & 3) == 0)? (nonPaddedWidth + 1) : 0;
     assign modFourTwo = (((nonPaddedWidth + 2) & 3) == 0)? (nonPaddedWidth + 2) : 0;
     assign modFourThree = (((nonPaddedWidth + 3) & 3) == 0)? (nonPaddedWidth + 3) : 0;
-    // always@(*) begin
-    //     if(modFourZero != 0) begin
-    //         paddedWidth <= modFourZero;
-    //     end
-    //     else if(modFourOne != 0) begin
-    //         paddedWidth <= modFourOne;
-    //     end
-    //     else if(modFourTwo != 0) begin
-    //         paddedWidth <= modFourTwo;
-    //     end
-    //     else if(modFourThree != 0) begin
-    //         paddedWidth <= modFourThree;
-    //     end
-    // end
     assign paddedWidth = (modFourZero!=0) ? modFourZero : (modFourOne!=0) ? modFourOne : (modFourTwo!=0) ? modFourTwo : (modFourThree!=0) ? modFourThree : 0;
     assign area = paddedWidth * (yMax - yMin + 1);
 

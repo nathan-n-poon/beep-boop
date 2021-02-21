@@ -19,7 +19,7 @@ module tb_cropping();
         #20;
         // D:/main/2020fall/poo/beep-boop/kodim24.hex
         // $readmemh("D:/main/2020fall/poo/beep-boop/kodim24.hex", dut.ram);
-        $readmemh("../MATLAB/square.hex", dut.readMem);
+        $readmemh("../MATLAB/triangle.hex", dut.readMem);
         
         #20;
 
@@ -38,7 +38,8 @@ module tb_cropping();
         // $fwrite(fd, "%c", BMP_header[i][7:0]);
         // $writememh("../MATLAB/output.hex", dut.writeMem);
         fd = $fopen("output.bmp", "wb+");
-        for(i=0; i<5826; i=i+1) begin
+        // 5826
+        for(i=0; i<20000; i=i+1) begin
             $fwrite(fd, "%c", dut.writeMem[i][7:0]); // write the header
         end
         $display("done!");

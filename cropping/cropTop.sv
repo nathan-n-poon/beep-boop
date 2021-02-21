@@ -15,11 +15,27 @@ module cropTop(
     logic[15:0] readdata;
     logic[31:0] writeAddr;
     logic[15:0] wrdata;
-    logic wrenCrop;    
+    logic wrenCrop; 
+    // triangle   
     logic[10:0] xMin = 28;
-    logic[10:0] yMin = 29;
-    logic[10:0] xMax = 79;
-    logic[10:0] yMax = 65;
+    logic[10:0] yMin = 34;
+    logic[10:0] xMax = 69;
+    logic[10:0] yMax = 78;
+    // windows
+    // logic[10:0] xMin = 19;
+    // logic[10:0] yMin = 21;
+    // logic[10:0] xMax = 54;
+    // logic[10:0] yMax = 54;
+    // circle
+    // logic[10:0] xMin = 27;
+    // logic[10:0] yMin = 27;
+    // logic[10:0] xMax = 81;
+    // logic[10:0] yMax = 78;
+    // shape
+    // logic[10:0] xMin = 4;
+    // logic[10:0] yMin = 16;
+    // logic[10:0] xMax = 84;
+    // logic[10:0] yMax = 77;
     cropping cropping(.clk(CLOCK_50), .rst_n(KEY[3]), .start(start_cropping), .done(done_cropping),
                                 .readAddr(readaddr), .readdata(readdata),
                                 .writeAddr(writeAddr), .wrdata(wrdata), .wren(wrenCrop),
