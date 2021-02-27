@@ -37,7 +37,7 @@ module tb_cropping();
             #10;
         end
 
-        fd = $fopen("squareOut.bmp", "wb+");
+        fd = $fopen("BMPOut/squareOut.bmp", "wb+");
         for(i=0; i<5826; i=i+1) begin
             $fwrite(fd, "%c", dut.writeMem[i][7:0]); // write the header
         end
@@ -63,7 +63,7 @@ module tb_cropping();
         end
 
 
-        fd = $fopen("triangleOut.bmp", "wb+");
+        fd = $fopen("BMPOut/triangleOut.bmp", "wb+");
         for(i=0; i<5814; i=i+1) begin
             $fwrite(fd, "%c", dut.writeMem[i][7:0]); // write the header
         end
@@ -89,7 +89,7 @@ module tb_cropping();
         end
 
 
-        fd = $fopen("circleOut.bmp", "wb+");
+        fd = $fopen("BMPOut/circleOut.bmp", "wb+");
         for(i=0; i<8790; i=i+1) begin
             $fwrite(fd, "%c", dut.writeMem[i][7:0]); // write the header
         end
@@ -114,7 +114,7 @@ module tb_cropping();
             #10;
         end
 
-        fd = $fopen("windowsOut.bmp", "wb+");
+        fd = $fopen("BMPOut/windowsOut.bmp", "wb+");
         for(i=0; i<3726; i=i+1) begin
             $fwrite(fd, "%c", dut.writeMem[i][7:0]); // write the header
         end
@@ -140,7 +140,7 @@ module tb_cropping();
         end
 
 
-        fd = $fopen("window2sOut.bmp", "wb+");
+        fd = $fopen("BMPOut/window2sOut.bmp", "wb+");
         for(i=0; i<3726; i=i+1) begin
             $fwrite(fd, "%c", dut.writeMem[i][7:0]); // write the header
         end
@@ -166,7 +166,7 @@ module tb_cropping();
         end
 
 
-        fd = $fopen("window3sOut.bmp", "wb+");
+        fd = $fopen("BMPOut/window3sOut.bmp", "wb+");
         for(i=0; i<5562; i=i+1) begin
             $fwrite(fd, "%c", dut.writeMem[i][7:0]); // write the header
         end
@@ -192,7 +192,7 @@ module tb_cropping();
         end
 
 
-        fd = $fopen("window4sOut.bmp", "wb+");
+        fd = $fopen("BMPOut/window4sOut.bmp", "wb+");
         for(i=0; i<2910; i=i+1) begin
             $fwrite(fd, "%c", dut.writeMem[i][7:0]); // write the header
         end
@@ -218,7 +218,7 @@ module tb_cropping();
         end
 
 
-        fd = $fopen("shapeOut.bmp", "wb+");
+        fd = $fopen("BMPOut/shapeOut.bmp", "wb+");
         for(i=0; i<15182; i=i+1) begin
             $fwrite(fd, "%c", dut.writeMem[i][7:0]); // write the header
         end
@@ -244,7 +244,7 @@ module tb_cropping();
         end
 
 
-        fd = $fopen("sushiOut.bmp", "wb+");
+        fd = $fopen("BMPOut/sushiOut.bmp", "wb+");
         for(i=0; i<18294; i=i+1) begin
             $fwrite(fd, "%c", dut.writeMem[i][7:0]); // write the header
         end
