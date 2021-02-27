@@ -14,13 +14,10 @@ module cropping
 
     logic doneValue = 0;
     logic [31:0] readAddrValue;
-    logic [31:0] writeAddrValueFake = 54;
+    logic [31:0] writeAddrValue = 54;
     logic wrenValue = 0;
     logic [15:0] wrdataValue = 0;
 
-    logic [15:0] readdataValue;
-
-    assign readdataValue = readdata;
 
     assign done = doneValue;
     assign readAddr = readAddrValue;
@@ -32,8 +29,6 @@ module cropping
     logic [1:0] rgb = 0;
     logic [1:0] paddingCounter = 0;
 
-    logic [31:0] area;
-
     logic [23:0] nonPaddedWidth;
     logic [23:0] modFourZero;
     logic [23:0] modFourOne;
@@ -41,16 +36,7 @@ module cropping
     logic [23:0] modFourThree;
     logic [23:0] paddedWidth;
 
-
-    assign nonPaddedWidth = 3*(xMax - xMin + 1);
-    assign modFourZero = ((nonPaddedWidth & 3) == 0)? nonPaddedWidth : 0;
-    assign modFourOne = (((nonPaddedWidth + 1) & 3) == 0)? (nonPaddedWidth + 1) : 0;
-    assign modFourTwo = (((nonPaddedWidth + 2) & 3) == 0)? (nonPaddedWidth + 2) : 0;
-    assign modFourThree = (((nonPaddedWidth + 3) & 3) == 0)? (nonPaddedWidth + 3) : 0;
-    assign paddedWidth = (modFourZero!=0) ? modFourZero : (modFourOne!=0) ? modFourOne : (modFourTwo!=0) ? modFourTwo : (modFourThree!=0) ? modFourThree : 0;
-    assign area = paddedWidth * (yMax - yMin + 1) + 54;
-
-    assign writeAddr = writeAddrValueFake;
+    assign writeAddr = writeAddrValue;
 
     enum {init, readMem, writeMem, padding, finished} state = init;
 
@@ -70,6 +56,7 @@ module cropping
             rgb <= 0;
             paddingCounter <= 0;
             state <= init;
+            writeAddrValue <= 54;
         end
 
         else
@@ -83,6 +70,7 @@ module cropping
                         yPos <= yMin;
                         rgb <= 0;
                         paddingCounter <= 0;
+                        writeAddrValue <= 54;
                         state <= readMem;
                     end
                     else 
@@ -93,15 +81,12 @@ module cropping
 
                 readMem:
                 begin
-                    // readdataValue <= readdata;
-                    // writeAddrValueFake <= writeAddrValueFake + 1;
                     state <= writeMem;
                 end
 
                 writeMem:
                 begin
-                    // readdataValue = readdata;
-                    writeAddrValueFake <= writeAddrValueFake + 1;
+                    writeAddrValue <= writeAddrValue + 1;
                     if(rgb + 1 < 3)
                     begin
                         rgb <= rgb + 1;
@@ -145,7 +130,7 @@ module cropping
 
                 padding:
                 begin
-                    writeAddrValueFake <= writeAddrValueFake + 1;
+                    writeAddrValue <= writeAddrValue + 1;
 
                     // check multiple of 4
                     if(((3*(xPos - xMin + 1) + paddingCounter + 1) & 3) != 0)
@@ -181,6 +166,7 @@ module cropping
                         yPos <= yMin;
                         rgb <= 0;
                         state <= readMem;
+                        writeAddrValue <= 54;
                     end
                     else
                     begin
@@ -212,7 +198,7 @@ module cropping
             begin
                 doneValue = 0;
                 wrenValue = 1;
-                wrdataValue = readdataValue;
+                wrdataValue = readdata;
             end
 
             padding:

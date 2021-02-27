@@ -127,6 +127,7 @@ module header
                 begin
                     if(start) // start the process when start is asserted
                     begin
+                        i <= 0;
                         state <= writing;
                     end
                     else 
