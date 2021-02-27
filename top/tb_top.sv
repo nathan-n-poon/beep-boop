@@ -16,9 +16,11 @@ module tb_cropping();
 
     initial begin
         // reset
+
+        //-------------------------------------------------------------------------------------------------------------------
+
         // #20;
-        // // D:/main/2020fall/poo/beep-boop/kodim24.hex
-        // // $readmemh("D:/main/2020fall/poo/beep-boop/kodim24.hex", dut.ram);
+
         // $readmemh("../MATLAB/square.hex", dut.readMem);
         
         // #20;
@@ -35,18 +37,15 @@ module tb_cropping();
         //     #10;
         // end
 
-        // // $fwrite(fd, "%c", BMP_header[i][7:0]);
-        // // $writememh("../MATLAB/output.hex", dut.writeMem);
         // fd = $fopen("squareOut.bmp", "wb+");
         // for(i=0; i<5826; i=i+1) begin
         //     $fwrite(fd, "%c", dut.writeMem[i][7:0]); // write the header
         // end
 
-
+        //-------------------------------------------------------------------------------------------------------------------
 
         // #20;
-        // // D:/main/2020fall/poo/beep-boop/kodim24.hex
-        // // $readmemh("D:/main/2020fall/poo/beep-boop/kodim24.hex", dut.ram);
+
         // $readmemh("../MATLAB/triangle.hex", dut.readMem);
         
         // #20;
@@ -63,17 +62,16 @@ module tb_cropping();
         //     #10;
         // end
 
-        // // $fwrite(fd, "%c", BMP_header[i][7:0]);
-        // // $writememh("../MATLAB/output.hex", dut.writeMem);
+
         // fd = $fopen("triangleOut.bmp", "wb+");
         // for(i=0; i<5814; i=i+1) begin
         //     $fwrite(fd, "%c", dut.writeMem[i][7:0]); // write the header
         // end
 
+        //-------------------------------------------------------------------------------------------------------------------
+
 
         // #20;
-        // // D:/main/2020fall/poo/beep-boop/kodim24.hex
-        // // $readmemh("D:/main/2020fall/poo/beep-boop/kodim24.hex", dut.ram);
         // $readmemh("../MATLAB/circle.hex", dut.readMem);
         
         // #20;
@@ -90,16 +88,16 @@ module tb_cropping();
         //     #10;
         // end
 
-        // // $fwrite(fd, "%c", BMP_header[i][7:0]);
-        // // $writememh("../MATLAB/output.hex", dut.writeMem);
+
         // fd = $fopen("circleOut.bmp", "wb+");
         // for(i=0; i<8790; i=i+1) begin
         //     $fwrite(fd, "%c", dut.writeMem[i][7:0]); // write the header
         // end
 
+        //-------------------------------------------------------------------------------------------------------------------
+        
         // #20;
-        // // D:/main/2020fall/poo/beep-boop/kodim24.hex
-        // // $readmemh("D:/main/2020fall/poo/beep-boop/kodim24.hex", dut.ram);
+
         // $readmemh("../MATLAB/windows.hex", dut.readMem);
         
         // #20;
@@ -116,16 +114,15 @@ module tb_cropping();
         //     #10;
         // end
 
-        // // $fwrite(fd, "%c", BMP_header[i][7:0]);
-        // // $writememh("../MATLAB/output.hex", dut.writeMem);
         // fd = $fopen("windowsOut.bmp", "wb+");
         // for(i=0; i<3726; i=i+1) begin
         //     $fwrite(fd, "%c", dut.writeMem[i][7:0]); // write the header
         // end
 
+        //-------------------------------------------------------------------------------------------------------------------
+
         // #20;
-        // // D:/main/2020fall/poo/beep-boop/kodim24.hex
-        // // $readmemh("D:/main/2020fall/poo/beep-boop/kodim24.hex", dut.ram);
+
         // $readmemh("../MATLAB/windows2.hex", dut.readMem);
         
         // #20;
@@ -142,43 +139,42 @@ module tb_cropping();
         //     #10;
         // end
 
-        // // $fwrite(fd, "%c", BMP_header[i][7:0]);
-        // // $writememh("../MATLAB/output.hex", dut.writeMem);
+
         // fd = $fopen("window2sOut.bmp", "wb+");
         // for(i=0; i<3726; i=i+1) begin
         //     $fwrite(fd, "%c", dut.writeMem[i][7:0]); // write the header
         // end
 
-        #20;
-        // D:/main/2020fall/poo/beep-boop/kodim24.hex
-        // $readmemh("D:/main/2020fall/poo/beep-boop/kodim24.hex", dut.ram);
-        $readmemh("../MATLAB/windows3.hex", dut.readMem);
-        
-        #20;
-
-        KEY[3] = 1'b1;
-        #10;
-        KEY[3] = 1'b0;
-        #10;
-        KEY[3] = 1'b1;
-        #200;
-
-        while(~dut.done)
-        begin
-            #10;
-        end
-
-        // $fwrite(fd, "%c", BMP_header[i][7:0]);
-        // $writememh("../MATLAB/output.hex", dut.writeMem);
-        fd = $fopen("window3sOut.bmp", "wb+");
-        for(i=0; i<5562; i=i+1) begin
-            $fwrite(fd, "%c", dut.writeMem[i][7:0]); // write the header
-        end
-
+        //-------------------------------------------------------------------------------------------------------------------
 
         // #20;
-        // // D:/main/2020fall/poo/beep-boop/kodim24.hex
-        // // $readmemh("D:/main/2020fall/poo/beep-boop/kodim24.hex", dut.ram);
+
+        // $readmemh("../MATLAB/windows3.hex", dut.readMem);
+        
+        // #20;
+
+        // KEY[3] = 1'b1;
+        // #10;
+        // KEY[3] = 1'b0;
+        // #10;
+        // KEY[3] = 1'b1;
+        // #200;
+
+        // while(~dut.done)
+        // begin
+        //     #10;
+        // end
+
+
+        // fd = $fopen("window3sOut.bmp", "wb+");
+        // for(i=0; i<5562; i=i+1) begin
+        //     $fwrite(fd, "%c", dut.writeMem[i][7:0]); // write the header
+        // end
+
+        //-------------------------------------------------------------------------------------------------------------------
+
+        // #20;
+
         // $readmemh("../MATLAB/windows4.hex", dut.readMem);
         
         // #20;
@@ -195,12 +191,65 @@ module tb_cropping();
         //     #10;
         // end
 
-        // // $fwrite(fd, "%c", BMP_header[i][7:0]);
-        // // $writememh("../MATLAB/output.hex", dut.writeMem);
+
         // fd = $fopen("window4sOut.bmp", "wb+");
         // for(i=0; i<2910; i=i+1) begin
         //     $fwrite(fd, "%c", dut.writeMem[i][7:0]); // write the header
         // end
+
+        //-------------------------------------------------------------------------------------------------------------------
+
+        // #20;
+
+        // $readmemh("../MATLAB/shape.hex", dut.readMem);
+
+        // #20;
+
+        // KEY[3] = 1'b1;
+        // #10;
+        // KEY[3] = 1'b0;
+        // #10;
+        // KEY[3] = 1'b1;
+        // #200;
+
+        // while(~dut.done)
+        // begin
+        //     #10;
+        // end
+
+
+        // fd = $fopen("shapeOut.bmp", "wb+");
+        // for(i=0; i<15182; i=i+1) begin
+        //     $fwrite(fd, "%c", dut.writeMem[i][7:0]); // write the header
+        // end
+
+        //-------------------------------------------------------------------------------------------------------------------
+
+        // #20;
+
+        // $readmemh("../MATLAB/shape2.hex", dut.readMem);
+
+        // #20;
+
+        // KEY[3] = 1'b1;
+        // #10;
+        // KEY[3] = 1'b0;
+        // #10;
+        // KEY[3] = 1'b1;
+        // #200;
+
+        // while(~dut.done)
+        // begin
+        //     #10;
+        // end
+
+
+        // fd = $fopen("shape2Out.bmp", "wb+");
+        // for(i=0; i<18294; i=i+1) begin
+        //     $fwrite(fd, "%c", dut.writeMem[i][7:0]); // write the header
+        // end
+
+        //-------------------------------------------------------------------------------------------------------------------
         
 
 

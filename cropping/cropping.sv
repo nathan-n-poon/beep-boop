@@ -14,7 +14,7 @@ module cropping
 
     logic doneValue = 0;
     logic [31:0] readAddrValue;
-    logic [31:0] writeAddrValueFake = 0;
+    logic [31:0] writeAddrValueFake = 54;
     logic wrenValue = 0;
     logic [15:0] wrdataValue = 0;
 
@@ -50,14 +50,14 @@ module cropping
     assign paddedWidth = (modFourZero!=0) ? modFourZero : (modFourOne!=0) ? modFourOne : (modFourTwo!=0) ? modFourTwo : (modFourThree!=0) ? modFourThree : 0;
     assign area = paddedWidth * (yMax - yMin + 1) + 54;
 
-    assign writeAddr = area - writeAddrValueFake;
+    assign writeAddr = writeAddrValueFake;
 
     enum {init, readMem, writeMem, padding, finished} state = init;
 
     logic validPixel;
 
     assign validPixel = (xPos <= xMax && xPos >= xMin) && (yPos <= yMax && yPos >= yMin);
-    assign readAddrValue = (HEIGHT - yPos - 1) * WIDTH * 3 + xPos * 3 + rgb;
+    assign readAddrValue = (yPos - yMin + (HEIGHT - yMax - 1)) * WIDTH * 3 + xPos * 3 + (3-rgb-1);
     // (xPos != xMax)? (HEIGHT - yPos - 1) * WIDTH * 3 + xPos * 3 + rgb + 1 : 
     // (rgb == 2 && xPos != (WIDTH-1))? (HEIGHT - yPos - 1) * WIDTH * 3 + xPos * 3 + rgb + 1 : (HEIGHT - yPos - 1) * WIDTH * 3 + xPos * 3 + rgb;
 
