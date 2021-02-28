@@ -44,9 +44,6 @@ module cropping
     //read memory, write it, maybe add cropping
     enum {init, readMem, writeMem, padding, finished} state = init;
 
-    logic validPixel;
-
-    assign validPixel = (xPos <= xMax && xPos >= xMin) && (yPos <= yMax && yPos >= yMin);
     assign readAddrValue = (yPos - yMin + (HEIGHT - yMax - 1)) * WIDTH * 3 + xPos * 3 + (3-rgb-1);
 
     always@(posedge clk)
