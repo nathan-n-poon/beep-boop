@@ -1,3 +1,13 @@
+//rddata: only one of RGB
+//readaddr: where in the hex file to read the original data 
+//readdata: the data being read
+//writeaddr: where to write the cropped file
+//wrdata: the data to write (the RGB inside the cropped area)
+//wren: write enable
+//xMin, xMax: the samllest and lagrest x coordinates for where the image is not the background colour. Start at the R position of the pixel
+//yMin, yMax: the samllest and lagrest y coordinates for where the image is not the background colour. Start at the R position of the pixel
+//start/done: on reset, done = 0. when start = 1, we drop done and start processing. After processing, done is raised. We restart when start is reasserted. done indicates valid data.
+//PARAMETERS: Hardware catures fixed dimensions bmp
 module cropping 
 #(
     parameter WIDTH = 100, 					// Image width
@@ -29,23 +39,15 @@ module cropping
     logic [1:0] rgb = 0;
     logic [1:0] paddingCounter = 0;
 
-    logic [23:0] nonPaddedWidth;
-    logic [23:0] modFourZero;
-    logic [23:0] modFourOne;
-    logic [23:0] modFourTwo;
-    logic [23:0] modFourThree;
-    logic [23:0] paddedWidth;
-
     assign writeAddr = writeAddrValue;
 
+    //read memory, write it, maybe add cropping
     enum {init, readMem, writeMem, padding, finished} state = init;
 
     logic validPixel;
 
     assign validPixel = (xPos <= xMax && xPos >= xMin) && (yPos <= yMax && yPos >= yMin);
     assign readAddrValue = (yPos - yMin + (HEIGHT - yMax - 1)) * WIDTH * 3 + xPos * 3 + (3-rgb-1);
-    // (xPos != xMax)? (HEIGHT - yPos - 1) * WIDTH * 3 + xPos * 3 + rgb + 1 : 
-    // (rgb == 2 && xPos != (WIDTH-1))? (HEIGHT - yPos - 1) * WIDTH * 3 + xPos * 3 + rgb + 1 : (HEIGHT - yPos - 1) * WIDTH * 3 + xPos * 3 + rgb;
 
     always@(posedge clk)
     begin

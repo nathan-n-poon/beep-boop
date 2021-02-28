@@ -79,35 +79,14 @@ module header
     assign BMP_header[28] = 24;
     assign BMP_header[29] = 0;
 
-    assign BMP_header[30] = 0;
-    assign BMP_header[31] = 0;
-    assign BMP_header[32] = 0;
-    assign BMP_header[33] = 0;
+    assign BMP_header[30:33] = 0;
 
     assign BMP_header[34] = area - (area>>8) * 16 * 16;
     assign BMP_header[35] = (area>>8) - (area>>16) * 16 *16;
     assign BMP_header[36] = (area>>16) - (area>>24) * 16 * 16;
     assign BMP_header[37] = (area>>24) - (area>>32) * 16 * 16;
 
-    assign BMP_header[38] = 0;
-    assign BMP_header[39] = 0;
-    assign BMP_header[40] = 0;
-    assign BMP_header[41] = 0;
-
-    assign BMP_header[42] = 0;
-    assign BMP_header[43] = 0;
-    assign BMP_header[44] = 0;
-    assign BMP_header[45] = 0;
-
-    assign BMP_header[46] = 0;
-    assign BMP_header[47] = 0;
-    assign BMP_header[48] = 0;
-    assign BMP_header[49] = 0;
-
-    assign BMP_header[50] = 0;
-    assign BMP_header[51] = 0;
-    assign BMP_header[52] = 0;
-    assign BMP_header[53] = 0;
+    assign BMP_header[38:53] = 0;
 
     enum {init, writing, finished} state = init;
     integer i = 0;

@@ -1,8 +1,9 @@
-//rddata: the entire pixel or only one of RGB?
+//rddata: only one of RGB
 //addr: where in the hex file to read the above data (no writing here)
 //xMin, xMax: the samllest and lagrest x coordinates for where the image is not the background colour. Returns the R position of the pixel
 //yMin, yMax: the samllest and lagrest y coordinates for where the image is not the background colour. Returns the R position of the pixel
-//start/done: on reset, done = 0. when start = 1, we drop done and start processing. AFter processing, done is raised. We restart when start is reasserted. done indicates valid data.
+//start/done: on reset, done = 0. when start = 1, we drop done and start processing. After processing, done is raised. We restart when start is reasserted. done indicates valid data.
+//PARAMETERS: Hardware catures fixed dimensions bmp
 module boundingBox 
 #(
     // parameter WIDTH = 626, 					// Image width for sushi
@@ -35,7 +36,9 @@ module boundingBox
     reg [1:0] rgb = 0;
 
     // xPos is not at its max, don't want to read onto the next pixel
-    assign addr = (rgb == 2 && xPos != (WIDTH-1))? (HEIGHT - yPos - 1) * WIDTH * 3 + xPos * 3 + rgb + 1 : (HEIGHT - yPos - 1) * WIDTH * 3 + xPos * 3 + rgb;
+    logic correction;
+    assign correction = (rgb == 2 && xPos != (WIDTH-1))? 1 : 0;
+    assign addr = (HEIGHT - yPos - 1) * WIDTH * 3 + xPos * 3 + rgb + correction;
 
     enum {init, readMem, finished} state = init;
 
