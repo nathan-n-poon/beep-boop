@@ -1,10 +1,11 @@
-**/
-.mti
-.mpf
-transcript
-_info
-.qdb
-.qpg
-.qtl
-_vmake
-.m
+# First, ignore everything
+*
+# Now, whitelist anything that's a directory
+!*/
+# And all the file types you're interested in.
+!*.sv
+!*.hex
+!*.bmp
+!*.c
+!*.bmp
+!CMakelists.txt

@@ -100,9 +100,9 @@ module cropping
                             xPos <= xPos + 1;
                             state <= readMem;
                         end
-                        else // 3 pixels * picture width + padding % 4?
+                        else 
                         begin
-                            if(((3*(xPos - xMin + 1) + paddingCounter) & 3) != 0)
+                            if(((3*(xPos - xMin + 1) + paddingCounter) & 3) != 0) //if current xPos + amount of padding mod 3 is not 0
                             begin
                                 state <= padding;
                             end
@@ -132,10 +132,10 @@ module cropping
                     writeAddrValue <= writeAddrValue + 1;
 
                     // check multiple of 4
-                    if(((3*(xPos - xMin + 1) + paddingCounter + 1) & 3) != 0)
+                    if(((3*(xPos - xMin + 1) + paddingCounter + 1) & 3) != 0) //if current xPos + amount of padding mod 3 is not 0
                     begin
                         state <= padding;
-                        paddingCounter <= paddingCounter + 1; // add 1 byte of padding at a time
+                        paddingCounter <= paddingCounter + 1;
                     end
                     else
                     begin
