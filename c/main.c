@@ -26,7 +26,7 @@ void ReadImage(const char *fileName,byte **pixels, int32 *width, int32 *height, 
 {
         printf("%s", "hello");
         //Open the file for reading in binary mode
-        FILE *imageFile = fopen("C:/Users/natha/OneDrive/Documents/GitHub/beep-boop/bmps/square.bmp", "rb");
+        FILE *imageFile = fopen("C:/Users/natha/OneDrive/Documents/GitHub/beep-boop/bmps/sushi.bmp", "rb");
         //Read data offset
         int32 dataOffset;
         fseek(imageFile, DATA_OFFSET_OFFSET, SEEK_SET);
@@ -81,7 +81,7 @@ void ReadImage(const char *fileName,byte **pixels, int32 *width, int32 *height, 
 void WriteImage(const char *fileName, byte *pixels, int32 width, int32 height,int32 bytesPerPixel)
 {
 //Open file in binary mode
-    FILE *outputFile = fopen("C:/Users/natha/OneDrive/Documents/GitHub/beep-boop/c/output.hex", "w");
+    FILE *outputFile = fopen("C:/Users/natha/OneDrive/Documents/GitHub/beep-boop/c/sushiOutput.hex", "w");
     //*****HEADER************//
     //write signature
 //    for(int i = 0; i < 100*100; i++) {
@@ -91,7 +91,7 @@ void WriteImage(const char *fileName, byte *pixels, int32 width, int32 height,in
 //    int x = sizeof(pixels);
     for (int i = 99; i >=0; i--) {
         for (int j = 0; j < 100; j++) {
-            for(int k = 0; k < 3; k++) {
+            for(int k = 2; k >= 0; k--) {
 //
                 int boi = pixels[i*100*3+j*3+k];
                 printf("%d ", boi);
