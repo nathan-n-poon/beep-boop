@@ -1,9 +1,13 @@
 module tb_boundingBox();
     logic CLOCK_50;
-    logic [3:0] KEY;
+    logic reset_n;
+    logic[15:0] xMinOut;
+    logic[15:0] xMaxOut;
+    logic[15:0] yMinOut;
+    logic[15:0] yMaxOut;
 
     // instiate boundingBoxTop
-    boundingBoxTop dut(.CLOCK_50(CLOCK_50), .KEY(KEY));
+    boundingBoxTop dut(.CLOCK_50(CLOCK_50), .reset_n(reset_n), .xMinOut(xMinOut), .xMaxOut(xMaxOut), .yMinOut(yMinOut), .yMaxOut(yMaxOut));
 
     // clock cycle
     initial begin
@@ -19,9 +23,9 @@ module tb_boundingBox();
         #20;
 
         
-        KEY[3] = 1'b0;
+        reset_n = 1'b0;
         #20;
-        KEY[3] = 1'b1;
+        reset_n = 1'b1;
         #200;
 
         while(~dut.done)
@@ -43,9 +47,9 @@ module tb_boundingBox();
         #20;
 
         
-        KEY[3] = 1'b0;
+        reset_n = 1'b0;
         #20;
-        KEY[3] = 1'b1;
+        reset_n = 1'b1;
         #200;
 
         while(~dut.done)
@@ -67,9 +71,9 @@ module tb_boundingBox();
         #20;
 
         
-        KEY[3] = 1'b0;
+        reset_n = 1'b0;
         #20;
-        KEY[3] = 1'b1;
+        reset_n = 1'b1;
         #200;
 
         while(~dut.done)
@@ -91,9 +95,9 @@ module tb_boundingBox();
         #20;
 
         
-        KEY[3] = 1'b0;
+        reset_n = 1'b0;
         #20;
-        KEY[3] = 1'b1;
+        reset_n = 1'b1;
         #200;
 
         while(~dut.done)
@@ -115,9 +119,9 @@ module tb_boundingBox();
         #20;
 
         
-        KEY[3] = 1'b0;
+        reset_n = 1'b0;
         #20;
-        KEY[3] = 1'b1;
+        reset_n = 1'b1;
         #200;
 
         while(~dut.done)
@@ -140,9 +144,9 @@ module tb_boundingBox();
         #20;
 
         
-        KEY[3] = 1'b0;
+        reset_n = 1'b0;
         #20;
-        KEY[3] = 1'b1;
+        reset_n = 1'b1;
         #200;
 
         while(~dut.done)
@@ -165,9 +169,9 @@ module tb_boundingBox();
         // #20;
 
         
-        // KEY[3] = 1'b0;
+        // reset_n = 1'b0;
         // #20;
-        // KEY[3] = 1'b1;
+        // reset_n = 1'b1;
         // #200;
 
         // while(~dut.done)

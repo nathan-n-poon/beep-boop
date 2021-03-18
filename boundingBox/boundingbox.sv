@@ -15,15 +15,15 @@ module boundingBox
     input logic clk, input logic rst_n,
     input logic start, output logic done,
     input logic [15:0] rddata, output logic [31:0] addr,
-    output logic[10:0] xMin, output logic[10:0] xMax,
-    output logic[10:0] yMin, output logic[10:0] yMax
+    output logic[15:0] xMin, output logic[15:0] xMax,
+    output logic[15:0] yMin, output logic[15:0] yMax
 );
     
     logic doneValue = 0;
-    logic [10:0] xMinValue = WIDTH - 1;
-    logic [10:0] xMaxValue = 0;
-    logic [10:0] yMinValue = HEIGHT - 1;
-    logic [10:0] yMaxValue = 0;
+    logic [15:0] xMinValue = WIDTH - 1;
+    logic [15:0] xMaxValue = 0;
+    logic [15:0] yMinValue = HEIGHT - 1;
+    logic [15:0] yMaxValue = 0;
 
     assign done = doneValue;
     assign xMin = xMinValue;
@@ -31,8 +31,8 @@ module boundingBox
     assign yMin = yMinValue;
     assign yMax = yMaxValue;
 
-    reg [10:0] xPos = 0;
-    reg [10:0] yPos = 0;
+    reg [15:0] xPos = 0;
+    reg [15:0] yPos = 0;
     reg [1:0] rgb = 0;
 
     // xPos is not at its max, don't want to read onto the next pixel

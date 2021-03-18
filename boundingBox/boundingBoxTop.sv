@@ -1,5 +1,7 @@
 module boundingBoxTop(
-    input logic CLOCK_50, input logic [3:0] KEY
+    input logic CLOCK_50, input logic reset_n,
+    output logic[15:0] xMaxOut, output logic[15:0] xMinOut,
+    output logic[15:0] yMaxOut, output logic[15:0] yMinOut
 );
     logic start;
     logic done;
@@ -15,19 +17,19 @@ module boundingBoxTop(
     // instantiate boundingbox
     logic[15:0] rddata;
     logic[31:0] addr;
-    logic[10:0] xMin;
-    logic[10:0] xMax;
-    logic[10:0] yMin;
-    logic[10:0] yMax;
-    boundingBox boundingBox(.clk(CLOCK_50), .rst_n(KEY[3]), .start(start), .done(done),
+    logic[15:0] xMin;
+    logic[15:0] xMax;
+    logic[15:0] yMin;
+    logic[15:0] yMax;
+    boundingBox boundingBox(.clk(CLOCK_50), .rst_n(reset_n), .start(start), .done(done),
                                 .rddata(rddata), .addr(addr),
                                 .xMin(xMin), .xMax(xMax),
                                 .yMin(yMin), .yMax(yMax));
 
     enum {init, processing, finished} state = init;
-
+    
     always@(posedge CLOCK_50) begin
-        if(~KEY[3]) begin
+        if(~reset_n) begin
             state <= init;
             start <= 1;
         end
@@ -53,4 +55,8 @@ module boundingBoxTop(
             endcase
         end
     end
+    assign xMinOut = xMin;
+    assign xMaxOut = xMax;
+    assign yMinOut = yMin;
+    assign yMaxOut = yMax;
 endmodule
