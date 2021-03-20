@@ -37,14 +37,17 @@ module tb_boundingBox();
 
         // phase 1
         for(i = 0; i < WIDTH*HEIGHT*3; i = i + 1) begin
+            wr_en = 1;
             hex_value_index[23:0] = i;
             hex_value_index[31:24] = tb_ram[i];
             #20;
         end
+        wr_en = 0;
 
         // phase 2
         hex_value_index[23:0] = BBRESET; // trigger start for boundingBox module
         #20
+        hex_value_index[23:0] = BBRESET + 1;
 
         while(~dut.done)
         begin
@@ -55,6 +58,45 @@ module tb_boundingBox();
                 else
         begin
             $display("expected values: 28 34 69 78 \n");
+            $display("actual values: %d %d %d %d \n", dut.xMin, dut.yMin, dut.xMax, dut.yMax);
+            // $stop;
+        end
+
+        // ------------------------------------------------------------------
+        // load image into tb_ram
+        #20;
+        $readmemh("../MATLAB/shape.hex", tb_ram);
+        #20;
+
+        // reset
+        reset_n = 1'b0;
+        #20;
+        reset_n = 1'b1;
+        #20;
+
+        // phase 1
+        for(i = 0; i < WIDTH*HEIGHT*3; i = i + 1) begin
+            wr_en = 1;
+            hex_value_index[23:0] = i;
+            hex_value_index[31:24] = tb_ram[i];
+            #20;
+        end
+        wr_en = 0;
+
+        // phase 2
+        hex_value_index[23:0] = BBRESET; // trigger start for boundingBox module
+        #20
+        hex_value_index[23:0] = BBRESET + 1;
+
+        while(~dut.done)
+        begin
+            #10;
+        end
+
+        assert(dut.xMin == 4 && dut.yMin == 16 && dut.xMax == 84 && dut.yMax == 77)
+                else
+        begin
+            $display("expected values: 4 16 84 77 \n");
             $display("actual values: %d %d %d %d \n", dut.xMin, dut.yMin, dut.xMax, dut.yMax);
             // $stop;
         end

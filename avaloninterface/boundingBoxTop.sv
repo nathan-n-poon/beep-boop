@@ -9,7 +9,6 @@ module boundingBoxTop(
     // input logic [16:0] hex_index, // index of the RAM where hex_value would be stored
     input logic [31:0] hex_value_index, // hex_value [31:24], hex_index [23:0]
     output logic [31:0] coordinates // xMin stored in [31:24], xMax[23:16], yMin[15:8], yMax[7:0]
-    
 );
     parameter BBRESET = 99999;   // any arbitrary big num
     logic start;
@@ -36,7 +35,7 @@ module boundingBoxTop(
     end
 
     // phase 2 performing boudingBox
-    enum {init, processing, finished} state = init;
+    enum {init, processing, finished} state = finished;
     always@(posedge CLOCK_50) begin
         if(hex_value_index[23:0] == BBRESET) begin
             state <= init;
