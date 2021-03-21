@@ -13,7 +13,7 @@ module boundingBoxTop(
     parameter BBRESET = 99999;   // any arbitrary big num
     logic start;
     logic done;
-    logic [7:0] ram [29999:0];
+    logic [7:0] ram [7499:0];
     
     // instantiate boundingbox
     logic[15:0] rddata;
@@ -26,8 +26,7 @@ module boundingBoxTop(
 
     // phase 1 store data into RAM
     always@(posedge CLOCK_50) begin
-        if(~reset_n) begin  // default value is 0
-            start <= 0;
+        if(~reset_n) begin
         end
         else if (wr_en == 1) begin
             ram[hex_value_index[23:0]] <= hex_value_index[31:24];
