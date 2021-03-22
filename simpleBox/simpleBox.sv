@@ -16,6 +16,10 @@ module simpleBox(
             x <= 0;
             y <= WIDTH - 1;
             rgb <= 0;
+            xMin = WIDTH-1;
+            xMax = 0;
+            yMin = HEIGHT-1;
+            yMax = 0;
         end
         else if(wr_en == 1) begin
             if(rgb != 2) begin
@@ -35,33 +39,24 @@ module simpleBox(
                 x <= x;
                 rgb <= rgb;
             end
-        end
-    end
 
-    // phase 1 store data into RAM
-    always@(*) begin
-        if(~reset_n || hex_value_index[23:0] == 99999) begin // reset
-            xMin = WIDTH-1;
-            xMax = 0;
-            yMin = HEIGHT-1;
-            yMax = 0;
-        end
-        else if(hex_value_index[31:24] < 250) begin // update coordinate when not white
-            if(x < xMin) 
-            begin
-                xMin <= x;
-            end
-            if(x > xMax)
-            begin
-                xMax <= x;
-            end
-            if(y < yMin)
-            begin
-                yMin <= y;
-            end
-            if(y > yMax)
-            begin
-                yMax <= y;
+            if(hex_value_index[31:24] < 250) begin // update coordinate when not white
+                if(x < xMin) 
+                begin
+                    xMin <= x;
+                end
+                if(x > xMax)
+                begin
+                    xMax <= x;
+                end
+                if(y < yMin)
+                begin
+                    yMin <= y;
+                end
+                if(y > yMax)
+                begin
+                    yMax <= y;
+                end
             end
         end
     end

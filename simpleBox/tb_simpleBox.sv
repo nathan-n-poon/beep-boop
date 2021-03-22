@@ -38,7 +38,7 @@ module tb_simpleBox();
 
         for(i = 0; i < WIDTH*HEIGHT*3; i = i + 1) begin
             wr_en = 1;
-            hex_value_index[23:0] = i;
+            hex_value_index[23:0] = 0;
             hex_value_index[31:24] = tb_ram[i];
             value = tb_ram[i];
             #20;
@@ -68,7 +68,7 @@ module tb_simpleBox();
 
         for(i = 0; i < WIDTH*HEIGHT*3; i = i + 1) begin
             wr_en = 1;
-            hex_value_index[23:0] = i;
+            hex_value_index[23:0] = 0;
             hex_value_index[31:24] = tb_ram[i];
             value = tb_ram[i];
             #20;
