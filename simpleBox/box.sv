@@ -1,11 +1,11 @@
-module simpleBox(
+module box(
     input logic CLOCK_50, input logic reset_n,
     input logic rd_en, input logic wr_en,
 
     input logic [31:0] hex_value_index, // hex_value [39:24], hex_index [23:0]
     output logic [31:0] out // xMin stored in [31:24], xMax[23:16], yMin[15:8], yMax[7:0]
 );
-    parameter WIDTH = 100, HEIGHT = 100, RESET = 99999;
+    parameter WIDTH = 160, HEIGHT = 90, RESET = 99999;
     logic [7:0] x;
     logic [7:0] y;
     logic [2:0] rgb;
