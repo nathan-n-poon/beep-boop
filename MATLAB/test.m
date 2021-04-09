@@ -1,3 +1,7 @@
+//for research and initial prototyping
+//not used n final product
+//taken from https://www.fpga4student.com/2016/11/image-processing-on-fpga-verilog.html
+//the hex conversion was later done in c/main.c
 b=imread('../bmps/sushi.bmp'); % 24-bit BMP image RGB888 
 %C:\Users\natha\OneDrive\Documents\GitHub\beep-boop\output.bmp
 k=1;

@@ -1,3 +1,4 @@
+//manual inspection of output for verification
 module tb_cropping();
     logic CLOCK_50;
     logic [3:0] KEY;

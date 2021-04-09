@@ -1,3 +1,8 @@
+//instatntiates cropping and header modules for testing them together
+//together, they write out a cropped bmp file to memory.
+
+//KEY3 is reset
+//done indicates memory finished writing
 module cropTop(
     input logic CLOCK_50, input logic [3:0] KEY, output logic done
 );
@@ -51,6 +56,7 @@ module cropTop(
                         .xMin(xMin), .xMax(xMax),
                         .yMin(yMin), .yMax(yMax));
 
+    // starts in init, writes header, writes body, finishes
     enum {init, process_header, process_cropping, finished} state = init;
 
     assign done = doneValue;
