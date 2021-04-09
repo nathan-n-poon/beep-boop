@@ -1,3 +1,4 @@
+//instantiates standalone boundingBox Module, used for unit testing
 module boundingBoxTop(
     input logic CLOCK_50, input logic reset_n,
     output logic[15:0] xMaxOut, output logic[15:0] xMinOut,

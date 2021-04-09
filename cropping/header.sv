@@ -1,3 +1,16 @@
+//PURPOSE:
+//writes out header of BMP.
+// header info includes file size, dimensions
+// size calculated from x/y min/max
+
+//ARGS / RETURN:
+//addr: where to write the cropped file
+//wrdata: the data to write (the RGB inside the cropped area)
+//wren: write enable
+//xMin, xMax: the samllest and lagrest x coordinates for where the image is not the background colour. Start at the R position of the pixel
+//yMin, yMax: the samllest and lagrest y coordinates for where the image is not the background colour. Start at the R position of the pixel
+//start/done: on reset, done = 0. when start = 1, we drop done and start processing. After processing, done is raised. We restart when start is reasserted. done indicates valid data.
+//PARAMETERS: Hardware catures fixed dimensions bmp
 module header 
 #(parameter WIDTH 	= 100,							// Image width
 			HEIGHT 	= 100							// Image height

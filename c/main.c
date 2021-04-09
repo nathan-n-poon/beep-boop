@@ -1,3 +1,6 @@
+//io code adapted from: https://elcharolin.wordpress.com/2018/11/28/read-and-write-bmp-files-in-c-c/
+//simply reads in BMP file and writes pixel data to hex file.
+//does not write padding or header values
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>

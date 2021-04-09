@@ -1,3 +1,8 @@
+//tested full pipeline of hardware acceleration
+//will crop all images and write result
+//1: generate all hex files
+//2: set sim time to large amount
+//3: run
 module tb_cropping();
     logic CLOCK_50;
     logic [3:0] KEY;

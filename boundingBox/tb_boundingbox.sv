@@ -1,3 +1,4 @@
+//expected values hardcoded after inspecting elements pixel by pixel in gimp
 module tb_boundingBox();
     logic CLOCK_50;
     logic reset_n;

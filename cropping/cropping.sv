@@ -1,3 +1,9 @@
+//PURPOSE:
+//based on given min/max of x and y, writes only pixels within those bounds to memory.
+//for every rgb of every pixel, determin if within min/max and then if so write to memory. 
+//will pad out end of row to make length of row a multiple of four if necessary (BMP rule)
+
+//ARGS / RETURN:
 //rddata: only one of RGB
 //readaddr: where in the hex file to read the original data 
 //readdata: the data being read
@@ -24,6 +30,7 @@ module cropping
 
     logic doneValue = 0;
     logic [31:0] readAddrValue;
+    //starts at 54 because after header.
     logic [31:0] writeAddrValue = 54;
     logic wrenValue = 0;
     logic [15:0] wrdataValue = 0;
@@ -34,14 +41,22 @@ module cropping
     assign wren = wrenValue;
     assign wrdata = wrdataValue;
 
+    //used to increment through x, y, rgb
     logic [10:0] xPos;
     logic [10:0] yPos;
     logic [1:0] rgb = 0;
+    //used to count how many padding bytes have been added.
+    //combined with original length, see if total length is multiple of four
     logic [1:0] paddingCounter = 0;
 
     assign writeAddr = writeAddrValue;
 
-    //read memory, write it, maybe add cropping
+    //states desc:
+    //init: idle state 
+    //readMem: makes mem read request
+    //writeMem: reads in previously requested data and writes to output memory. Either transitions to next row at xMin, padding, or ends loop
+    //padding: if padding + original length is not a multiple of four, add padding bytes until it is
+    //finished: states that output mem is ready
     enum {init, readMem, writeMem, padding, finished} state = init;
 
     assign readAddrValue = (yPos - yMin + (HEIGHT - yMax - 1)) * WIDTH * 3 + xPos * 3 + (3-rgb-1);
@@ -55,6 +70,7 @@ module cropping
             rgb <= 0;
             paddingCounter <= 0;
             state <= init;
+            //init value is after header pos.
             writeAddrValue <= 54;
         end
 
@@ -86,6 +102,7 @@ module cropping
                 writeMem:
                 begin
                     writeAddrValue <= writeAddrValue + 1;
+                    //tries to increment rgb counter
                     if(rgb + 1 < 3)
                     begin
                         rgb <= rgb + 1;
@@ -95,6 +112,7 @@ module cropping
                     else
                     begin
                         rgb <= 0;
+                        //tries to increment x pos
                         if(xPos + 1 <= xMax)
                         begin
                             xPos <= xPos + 1;
@@ -102,19 +120,22 @@ module cropping
                         end
                         else 
                         begin
-                            if(((3*(xPos - xMin + 1) + paddingCounter) & 3) != 0) //if current xPos + amount of padding mod 3 is not 0
+                            //need to pad at least once. enter pad loop
+                            if(((3*(xPos - xMin + 1) + paddingCounter) & 3) != 0) //if current xPos + amount of padding and'ed with 3 is not 0
                             begin
                                 state <= padding;
                             end
                             else
                             begin
                                 xPos <= xMin;
+                                //tries to increment y pos
                                 if(yPos + 1 <= yMax)
                                 begin
                                     yPos <= yPos + 1;
                                     state <= readMem;
                                 end
                                 else
+                                //ends loop
                                 begin
                                     xPos <= xMin;
                                     yPos <= yMin;
@@ -131,8 +152,8 @@ module cropping
                 begin
                     writeAddrValue <= writeAddrValue + 1;
 
-                    // check multiple of 4
-                    if(((3*(xPos - xMin + 1) + paddingCounter + 1) & 3) != 0) //if current xPos + amount of padding mod 3 is not 0
+                    // while total length of padding + original width is not a multiple of four, loop
+                    if(((3*(xPos - xMin + 1) + paddingCounter + 1) & 3) != 0) //if current xPos + amount of padding and'ed with 3 is not 0
                     begin
                         state <= padding;
                         paddingCounter <= paddingCounter + 1;
@@ -140,6 +161,7 @@ module cropping
                     else
                     begin
                         xPos <= xMin;
+                        //transition out of loop, try increment y pos
                         if(yPos + 1 <= yMax)
                         begin
                             yPos <= yPos + 1;
@@ -148,6 +170,7 @@ module cropping
                         end
                         else
                         begin
+                            //transition out of loop, end entire loop
                             xPos <= xMin;
                             yPos <= yMin;
                             rgb <= 0;
@@ -159,6 +182,7 @@ module cropping
 
                 finished:
                 begin
+                    //start nex cycle if start reasserted
                     if(start)
                     begin
                         xPos <= xMin;
