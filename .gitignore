@@ -9,3 +9,5 @@
 !*.c
 !*.bmp
 !CMakelists.txt
+!README.md
+!LICENSE
