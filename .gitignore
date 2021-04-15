@@ -8,6 +8,7 @@
 !*.bmp
 !*.c
 !*.bmp
+!*.PNG
 !CMakelists.txt
 !README.md
 !LICENSE
